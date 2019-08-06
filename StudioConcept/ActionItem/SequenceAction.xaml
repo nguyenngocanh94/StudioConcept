@@ -4,12 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:cvt="clr-namespace:StudioConcept.Converter"
-             mc:Ignorable="d">
+             mc:Ignorable="d" >
     <UserControl.Resources>
         <cvt:ColorToBrushConverter x:Key="stringToBrushConverter"/>
     </UserControl.Resources>
-    <Grid>
+    <Canvas>
         <Path Data="{Binding Data}" Fill="{Binding Color, Converter={StaticResource stringToBrushConverter}}"/>
-        <TextBlock Foreground="{Binding TextColor, Converter={StaticResource stringToBrushConverter}}" Margin="{Binding MarginText}" Text="{Binding Text}"></TextBlock>
-    </Grid>
+        <TextBlock Text="DCMM" Foreground="White"></TextBlock>
+    </Canvas>
 </UserControl>

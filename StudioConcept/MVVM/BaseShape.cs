@@ -26,7 +26,7 @@ namespace StudioConcept.MVVM
                     return;
                 }
                 x = value;
-                OnPropertyChanged("X");
+                OnPropertyChanged(nameof(X));
             }
         }
 
@@ -41,7 +41,18 @@ namespace StudioConcept.MVVM
                     return;
                 }
                 y = value;
-                OnPropertyChanged("Y");
+                OnPropertyChanged(nameof(Y));
+            }
+        }
+
+        private bool isRecorded;
+        public bool IsRecorded {
+            get => isRecorded;
+            set
+            {
+
+                isRecorded = value;
+                OnPropertyChanged(nameof(IsRecorded));
             }
         }
     }

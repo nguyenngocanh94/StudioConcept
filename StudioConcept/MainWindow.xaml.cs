@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using StudioConcept.MVVM;
 
 namespace StudioConcept
 {
@@ -23,6 +24,19 @@ namespace StudioConcept
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainWindowMVVM(Canvas);
         }
+
+        private void UIElement_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void UIElement_OnMouseEnter(object sender, MouseEventArgs e)
+        {
+            Console.WriteLine(((FrameworkElement)sender).Tag);
+        }
+
+       
     }
 }

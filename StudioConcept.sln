@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudioConcept", "StudioConcept\StudioConcept.csproj", "{0D47A48D-7468-4BC9-A45A-E787F8DF1534}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackerRank", "HackerRank\HackerRank.csproj", "{0AB77592-7EEF-4289-9DBE-B45B471020D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0D47A48D-7468-4BC9-A45A-E787F8DF1534}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D47A48D-7468-4BC9-A45A-E787F8DF1534}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D47A48D-7468-4BC9-A45A-E787F8DF1534}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AB77592-7EEF-4289-9DBE-B45B471020D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AB77592-7EEF-4289-9DBE-B45B471020D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AB77592-7EEF-4289-9DBE-B45B471020D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AB77592-7EEF-4289-9DBE-B45B471020D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

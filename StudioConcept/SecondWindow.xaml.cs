@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StudioConcept.ActionItem
+namespace StudioConcept
 {
     /// <summary>
-    /// Interaction logic for SequenceAction.xaml
+    /// Interaction logic for SecondWindow.xaml
     /// </summary>
-    public partial class SequenceAction : UserControl
+    public partial class SecondWindow : Window
     {
-        public SequenceAction()
+        public SecondWindow()
         {
             InitializeComponent();
         }
