@@ -7,8 +7,12 @@
         mc:Ignorable="d"
         Title="SecondWindow" Height="450" Width="800">
     <Grid>
-        <TreeView Height="100" Canvas.Left="213.4" Canvas.Top="323" Width="100" ItemsPanel="{DynamicResource ItemsPanelTemplate1}" ItemContainerStyle="{DynamicResource TreeViewItemStyle1}">
-
+        <TreeView ItemsPanel="{DynamicResource ItemsPanelTemplate1}" ItemContainerStyle="{DynamicResource TreeViewItemStyle1}" Margin="10,10,193.594,87.5">
+            <TreeViewItem Header="Work Days">
+                <TreeViewItem Header="Monday"/>
+                <TreeViewItem Header="Tuesday"/>
+                <TreeViewItem Header="Thursday"/>
+            </TreeViewItem>
         </TreeView>
     </Grid>
 </Window>
