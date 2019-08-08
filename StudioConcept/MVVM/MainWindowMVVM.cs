@@ -43,7 +43,6 @@ namespace StudioConcept.MVVM
 
         public MainWindowMVVM(Canvas dropTarget)
         {
-            shapes.Add(new IfShape(400, 80, Colors.Red, "IF"));        
             shapes.Add(new Sequence(240, 40, Colors.Blue, "Web"));
             this.dropTarget = dropTarget;
         }

@@ -1,0 +1,20 @@
+﻿<Window x:Class="StudioConcept.TreeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StudioConcept"
+        xmlns:tree="clr-namespace:StudioConcept.Tree"
+        xmlns:action="clr-namespace:StudioConcept.ActionItem"
+        xmlns:mvvm="clr-namespace:StudioConcept.MVVM"
+        mc:Ignorable="d"
+        Title="TreeView" Height="450" Width="800">
+    <TreeView ItemsSource="{Binding Shapes}">
+        <TreeView.Resources>
+            <HierarchicalDataTemplate DataType="{x:Type mvvm:BaseShape}" 
+                ItemsSource="{Binding ChildNodes}">
+                <action:SequenceAction></action:SequenceAction>
+            </HierarchicalDataTemplate>
+        </TreeView.Resources>
+    </TreeView>
+</Window>

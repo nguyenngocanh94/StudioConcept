@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using StudioConcept.MVVM;
+using StudioConcept.Tree;
 
 namespace StudioConcept
 {
@@ -19,9 +21,13 @@ namespace StudioConcept
     /// </summary>
     public partial class SecondWindow : Window
     {
+        public Node Shapes { get; set; }
         public SecondWindow()
         {
-            InitializeComponent();
+            Shapes = new Node(new IfShape(300, 80, Colors.Aqua, "IF"));
+            Shapes.ChildNodes.Add(new Node(new Sequence(300, 80, Colors.Brown, "Web")));
+            InitializeComponent();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+            DataContext = this;
         }
     }
 }

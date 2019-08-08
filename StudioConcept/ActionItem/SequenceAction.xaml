@@ -3,13 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:cvt="clr-namespace:StudioConcept.Converter"
+             xmlns:ctv="clr-namespace:StudioConcept.Converter"
              mc:Ignorable="d" >
     <UserControl.Resources>
-        <cvt:ColorToBrushConverter x:Key="stringToBrushConverter"/>
+        <ctv:ShapeTextPositionConverter x:Key="ShapeTextPositionConverter"/>
     </UserControl.Resources>
     <Canvas>
-        <Path Data="{Binding Data}" Fill="{Binding Color, Converter={StaticResource stringToBrushConverter}}"/>
-        <TextBlock Text="DCMM" Foreground="White"></TextBlock>
+        <Path x:Name="Shape" Data="{Binding Data}"
+              Fill="{Binding Color, Converter={StaticResource stringToBrushConverter}}"/>
+        <TextBlock FontSize="{Binding FontSize}" x:Name="ActionName" Foreground="White" Text="{Binding Text}" Canvas.Left="{Binding Converter={StaticResource ShapeTextPositionConverter}, ConverterParameter=Canvas.Left}"
+                   Canvas.Top="{Binding Converter={StaticResource ShapeTextPositionConverter}, ConverterParameter=Canvas.Top}" />
     </Canvas>
 </UserControl>

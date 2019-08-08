@@ -11,8 +11,7 @@
     <Window.Resources>
         <DataTemplate DataType="{x:Type mvvm:BaseShape}">
             <Grid>
-                <action:SequenceAction AllowDrop="True" >
-                </action:SequenceAction>
+                <action:SequenceAction AllowDrop="True" ></action:SequenceAction>
             </Grid>
         </DataTemplate>
     </Window.Resources>
