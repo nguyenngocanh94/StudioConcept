@@ -3,42 +3,51 @@ using System.Windows.Media;
 
 namespace StudioConcept.MVVM
 {
-    public class IfShape : BaseShape
+    public interface IBranch
     {
-        private double middleSpace;
-        private double width;
+
+    }
+    public class IfShape : BaseShape, IBranch
+    {
+        private double _middleSpace;
+        public double MiddleSpace { get=>_middleSpace;
+            set { _middleSpace = value; Data=Draw();
+                
+            }
+        }
+        private double _width;
         public string Draw()
         {
-            string aboveTemplate = $"m 0,4 A 4,4 0 0,1 4,0 H 12 c 2,0 3,1 4,2 l 4,4 c 1,1 2,2 4,2 h 12 c 2,0 3,-1 4,-2 l 4,-4 c 1,-1 2,-2 4,-2 H {width} a 4,4 0 0,1 4,4 v 40  a 4,4 0 0,1 -4,4 H 64 c -2,0 -3,1 -4,2 l -4,4 c -1,1 -2,2 -4,2 h -12 c -2,0 -3,-1 -4,-2 l -4,-4 c -1,-1 -2,-2 -4,-2 h -8  a 4,4 0 0,0 -4,4 ";
-            string middleSpaceTemplate = $"v {middleSpace} a 4,4 0 0,0 4,4 ";
-            string belowTemplate = $"h 8 c 2,0 3,1 4,2 l 4,4 c 1,1 2,2 4,2 h 12 c 2,0 3,-1 4,-2 l 4,-4 c 1,-1 2,-2 4,-2 H {width} H {width} a 4,4 0 0,1 4,4 v 40  a 4,4 0 0,1 -4,4 H 48   c -2,0 -3,1 -4,2 l -4,4 c -1,1 -2,2 -4,2 h -12 c -2,0 -3,-1 -4,-2 l -4,-4 c -1,-1 -2,-2 -4,-2 H 4 a 4,4 0 0,1 -4,-4 z";
+            string aboveTemplate = $"m 0,4 A 4,4 0 0,1 4,0 H 12 c 2,0 3,1 4,2 l 4,4 c 1,1 2,2 4,2 h 12 c 2,0 3,-1 4,-2 l 4,-4 c 1,-1 2,-2 4,-2 H {_width} a 4,4 0 0,1 4,4 v 40  a 4,4 0 0,1 -4,4 H 64 c -2,0 -3,1 -4,2 l -4,4 c -1,1 -2,2 -4,2 h -12 c -2,0 -3,-1 -4,-2 l -4,-4 c -1,-1 -2,-2 -4,-2 h -8  a 4,4 0 0,0 -4,4 ";
+            string middleSpaceTemplate = $"v {_middleSpace} a 4,4 0 0,0 4,4 ";
+            string belowTemplate = $"h 8 c 2,0 3,1 4,2 l 4,4 c 1,1 2,2 4,2 h 12 c 2,0 3,-1 4,-2 l 4,-4 c 1,-1 2,-2 4,-2 H {_width} H {_width} a 4,4 0 0,1 4,4 v 40  a 4,4 0 0,1 -4,4 H 48   c -2,0 -3,1 -4,2 l -4,4 c -1,1 -2,2 -4,2 h -12 c -2,0 -3,-1 -4,-2 l -4,-4 c -1,-1 -2,-2 -4,-2 H 4 a 4,4 0 0,1 -4,-4 z";
 
             return aboveTemplate + middleSpaceTemplate + belowTemplate;
         }
 
         public Color Color { get; set; }
         public Color TextColor { get; set; }
-        private string data;
+        private string _data;
         public string Data
         {
-            get => data;
+            get => _data;
             set
             {
-                data = value;
-                OnPropertyChanged("Data");
+                _data = value;
+                OnPropertyChanged(nameof(Data));
             }
         }
 
         public double FontSize { get; set; }
 
-        private string text;
+        private string _text;
         public string Text
         {
-            get => text;
+            get => _text;
             set
             {
-                text = value;
-                OnPropertyChanged("Text");
+                _text = value;
+                OnPropertyChanged(nameof(Text));
             }
         }
 
@@ -46,11 +55,12 @@ namespace StudioConcept.MVVM
 
         public IfShape(double width, double middleSpace, Color color, string text)
         {
-            this.width = width;
-            this.middleSpace = middleSpace;
+            _width = width;
+            _middleSpace = middleSpace;
             Color = color;
-            this.text = text;
-            data = Draw();
+            _text = text;
+            _data = Draw();
         }
+
     }
 }

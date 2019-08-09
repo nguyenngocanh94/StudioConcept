@@ -9,10 +9,18 @@
         xmlns:mvvm="clr-namespace:StudioConcept.MVVM"
         mc:Ignorable="d"
         Title="TreeView" Height="450" Width="800">
-    <TreeView ItemsSource="{Binding Shapes}">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary 
+                    Source="Style/TreeViewStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <TreeView ItemsSource="{Binding Shapes}" ItemContainerStyle="{StaticResource IfShapeStyle}">
         <TreeView.Resources>
             <HierarchicalDataTemplate DataType="{x:Type mvvm:BaseShape}" 
-                ItemsSource="{Binding ChildNodes}">
+                ItemsSource="{Binding ChildrenNode}">
                 <action:SequenceAction></action:SequenceAction>
             </HierarchicalDataTemplate>
         </TreeView.Resources>

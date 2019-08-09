@@ -1,11 +1,13 @@
-﻿using JetBrains.Annotations;
+﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using StudioConcept.Tree;
 
 
 namespace StudioConcept.MVVM
 {
-    public class BaseShape : INotifyPropertyChanged
+    public class BaseShape : INotifyPropertyChanged, INode
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -45,15 +47,20 @@ namespace StudioConcept.MVVM
             }
         }
 
-        private bool isRecorded;
+        private bool _isRecorded;
         public bool IsRecorded {
-            get => isRecorded;
+            get => _isRecorded;
             set
             {
 
-                isRecorded = value;
+                _isRecorded = value;
                 OnPropertyChanged(nameof(IsRecorded));
             }
         }
+
+        private List<BaseShape> _childrenNode;
+
+        public List<BaseShape> ChildrenNode
+            => _childrenNode ?? (_childrenNode = new List<BaseShape>());
     }
 }

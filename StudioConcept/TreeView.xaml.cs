@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 using StudioConcept.MVVM;
-using StudioConcept.Tree;
+
 
 namespace StudioConcept
 {
@@ -21,11 +12,14 @@ namespace StudioConcept
     /// </summary>
     public partial class TreeView : Window
     {
-        public Node Shapes { get; set; }
+        public List<BaseShape> Shapes { get; set; }
         public TreeView()
         {
-            Shapes = new Node(new IfShape(300, 80, Colors.Aqua, "IF"));
-            Shapes.ChildNodes.Add(new Node(new Sequence(300, 80, Colors.Brown, "Web")));
+            Shapes = new List<BaseShape>();
+            BaseShape root = new IfShape(300, 80, Colors.Aqua, "IF");
+            root.ChildrenNode.Add(new Sequence(250, 40, Colors.Brown, "Web"));
+            root.ChildrenNode.Add(new Sequence(250, 40, Colors.Yellow, "Seq"));
+            Shapes.Add(root);
             InitializeComponent();
             DataContext = this;
         }

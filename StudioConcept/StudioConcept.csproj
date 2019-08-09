@@ -63,6 +63,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converter\ChildrenEachPositionConverter.cs" />
     <Compile Include="Converter\ChildrenPositionConverter.cs" />
     <Compile Include="Converter\ShapeTextPositionConverter.cs" />
     <Compile Include="ListView.xaml.cs">

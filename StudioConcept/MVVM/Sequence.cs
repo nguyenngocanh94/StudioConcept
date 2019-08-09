@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Media;
+using StudioConcept.Tree;
 
 namespace StudioConcept.MVVM
 {
@@ -24,7 +26,7 @@ namespace StudioConcept.MVVM
             set
             {
                 data = value;
-                OnPropertyChanged("Data");
+                OnPropertyChanged(nameof(Data));
             }
         }
 
@@ -36,7 +38,7 @@ namespace StudioConcept.MVVM
             set
             {
                 text = value;
-                OnPropertyChanged("Text");
+                OnPropertyChanged(nameof(Text));
             }
         }
 
@@ -51,6 +53,5 @@ namespace StudioConcept.MVVM
             FontSize = 15;
             data = Draw();
         }
-
     }
 }
