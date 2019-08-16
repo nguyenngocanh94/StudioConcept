@@ -3,27 +3,48 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:mvvm="clr-namespace:StudioConcept.MVVM"
         xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
+        xmlns:mvvm="clr-namespace:StudioConcept.MVVM"
         xmlns:action="clr-namespace:StudioConcept.ActionItem"
+        DataContext="{Binding Main, Source={StaticResource Locator}}"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="1200">
+
     <Window.Resources>
         <DataTemplate DataType="{x:Type mvvm:BaseShape}">
-            <Grid>
-                <action:SequenceAction AllowDrop="True" ></action:SequenceAction>
-            </Grid>
+            <action:SequenceAction></action:SequenceAction>
         </DataTemplate>
     </Window.Resources>
-    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"></ColumnDefinition>
             <ColumnDefinition Width="7*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <ItemsControl dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" ItemsSource="{Binding Shapes}">
-        </ItemsControl>
-        <Canvas x:Name="Canvas" Background="Aqua" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" Grid.Column="1">
-        </Canvas>
+        <ListView dd:DragDrop.IsDragSource="True" Background="Bisque" ItemsSource="{Binding DragSr}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <action:SequenceActionForTemplate></action:SequenceActionForTemplate>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <ListView x:Name="Studio" ItemsSource="{Binding Shapes}" dd:DragDrop.IsDropTarget="True"
+                dd:DragDrop.DropHandler="{Binding}" Grid.Column="1">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas IsItemsHost="True"></Canvas>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter
+                        Property="Canvas.Left"
+                        Value="{Binding X}"/>
+                    <Setter
+                        Property="Canvas.Top"
+                        Value="{Binding Y}"/>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+        </ListView>
     </Grid>
 </Window>

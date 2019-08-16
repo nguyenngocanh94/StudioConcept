@@ -3,26 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:StudioConcept"
-        xmlns:tree="clr-namespace:StudioConcept.Tree"
         xmlns:action="clr-namespace:StudioConcept.ActionItem"
-        xmlns:mvvm="clr-namespace:StudioConcept.MVVM"
-        mc:Ignorable="d"
-        Title="TreeView" Height="450" Width="800">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary 
-                    Source="Style/TreeViewStyle.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
-    <TreeView ItemsSource="{Binding Shapes}" ItemContainerStyle="{StaticResource IfShapeStyle}">
-        <TreeView.Resources>
-            <HierarchicalDataTemplate DataType="{x:Type mvvm:BaseShape}" 
-                ItemsSource="{Binding ChildrenNode}">
-                <action:SequenceAction></action:SequenceAction>
-            </HierarchicalDataTemplate>
-        </TreeView.Resources>
-    </TreeView>
+        mc:Ignorable="d">
+    <action:IfActionItem Shapes="{Binding Shapes}"></action:IfActionItem>
 </Window>

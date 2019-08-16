@@ -15,28 +15,21 @@ namespace StudioConcept.MVVM
                 
             }
         }
-        private double _width;
-        public string Draw()
+
+        public override double UpperY => Y - 20;
+        public override double Height => _middleSpace + 40;
+        public override string Draw()
         {
-            string aboveTemplate = $"m 0,4 A 4,4 0 0,1 4,0 H 12 c 2,0 3,1 4,2 l 4,4 c 1,1 2,2 4,2 h 12 c 2,0 3,-1 4,-2 l 4,-4 c 1,-1 2,-2 4,-2 H {_width} a 4,4 0 0,1 4,4 v 40  a 4,4 0 0,1 -4,4 H 64 c -2,0 -3,1 -4,2 l -4,4 c -1,1 -2,2 -4,2 h -12 c -2,0 -3,-1 -4,-2 l -4,-4 c -1,-1 -2,-2 -4,-2 h -8  a 4,4 0 0,0 -4,4 ";
+            string aboveTemplate = $"m 0,4 A 4,4 0 0,1 4,0 H 12 c 2,0 3,1 4,2 l 4,4 c 1,1 2,2 4,2 h 12 c 2,0 3,-1 4,-2 l 4,-4 c 1,-1 2,-2 4,-2 H {Width} a 4,4 0 0,1 4,4 v 20  a 4,4 0 0,1 -4,4 H 64 c -2,0 -3,1 -4,2 l -4,4 c -1,1 -2,2 -4,2 h -12 c -2,0 -3,-1 -4,-2 l -4,-4 c -1,-1 -2,-2 -4,-2 h -8  a 4,4 0 0,0 -4,4 ";
             string middleSpaceTemplate = $"v {_middleSpace} a 4,4 0 0,0 4,4 ";
-            string belowTemplate = $"h 8 c 2,0 3,1 4,2 l 4,4 c 1,1 2,2 4,2 h 12 c 2,0 3,-1 4,-2 l 4,-4 c 1,-1 2,-2 4,-2 H {_width} H {_width} a 4,4 0 0,1 4,4 v 40  a 4,4 0 0,1 -4,4 H 48   c -2,0 -3,1 -4,2 l -4,4 c -1,1 -2,2 -4,2 h -12 c -2,0 -3,-1 -4,-2 l -4,-4 c -1,-1 -2,-2 -4,-2 H 4 a 4,4 0 0,1 -4,-4 z";
+            string belowTemplate = $"h 8 c 2,0 3,1 4,2 l 4,4 c 1,1 2,2 4,2 h 12 c 2,0 3,-1 4,-2 l 4,-4 c 1,-1 2,-2 4,-2 H {Width} H {Width} a 4,4 0 0,1 4,4 v 20  a 4,4 0 0,1 -4,4 H 48   c -2,0 -3,1 -4,2 l -4,4 c -1,1 -2,2 -4,2 h -12 c -2,0 -3,-1 -4,-2 l -4,-4 c -1,-1 -2,-2 -4,-2 H 4 a 4,4 0 0,1 -4,-4 z";
 
             return aboveTemplate + middleSpaceTemplate + belowTemplate;
         }
 
         public Color Color { get; set; }
         public Color TextColor { get; set; }
-        private string _data;
-        public string Data
-        {
-            get => _data;
-            set
-            {
-                _data = value;
-                OnPropertyChanged(nameof(Data));
-            }
-        }
+        
 
         public double FontSize { get; set; }
 
@@ -55,11 +48,16 @@ namespace StudioConcept.MVVM
 
         public IfShape(double width, double middleSpace, Color color, string text)
         {
-            _width = width;
+            Width = width;
             _middleSpace = middleSpace;
             Color = color;
             _text = text;
-            _data = Draw();
+            Data = Draw();
+        }
+
+        public IfShape()
+        {
+            
         }
 
     }

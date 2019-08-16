@@ -1,30 +1,19 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:item="clr-namespace:StudioConcept.ActionItem"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                     xmlns:converter="clr-namespace:StudioConcept.Converter">
     <converter:ChildrenPositionConverter x:Key="ChildrenPositionConverter"></converter:ChildrenPositionConverter>
     <converter:ChildrenEachPositionConverter x:Key="ChildrenEachPositionConverter"></converter:ChildrenEachPositionConverter>
     <Style x:Key="IfShapeStyle" TargetType="TreeViewItem">
-        <Style.Triggers>
-            <Trigger Property="TreeViewItem.HasItems" Value="false">
-               <Setter Property="Canvas.Top">
-                   <Setter.Value>
-                        <MultiBinding Converter="{StaticResource ChildrenEachPositionConverter}">
-                            <Binding></Binding>
-                        </MultiBinding>
-                   </Setter.Value>
-               </Setter>
-            </Trigger>
-        </Style.Triggers>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TreeViewItem">
-                    <Canvas x:Name="HostWithChildren" >
+                    <Canvas x:Name="HostWithChildren">
                         <Canvas.Resources>
                             <converter:ChildrenPositionConverter x:Key="ChildrenPositionCvt"/>
                         </Canvas.Resources>
-                        <item:SequenceAction x:Name="PART_Header">
-                        </item:SequenceAction>
+                        <item:SequenceAction x:Name="PART_Header"></item:SequenceAction>
                         <ItemsPresenter Name="ItemsPresenter">
                             <Canvas.Left>
                                 <MultiBinding Converter="{StaticResource ChildrenPositionConverter}">
@@ -46,6 +35,7 @@
                                 TargetName="ItemsPresenter" 
                                 Property="Visibility" 
                                 Value="Hidden" />
+                            <Setter Property="Canvas.Top" Value="{Binding InnerY}"></Setter>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

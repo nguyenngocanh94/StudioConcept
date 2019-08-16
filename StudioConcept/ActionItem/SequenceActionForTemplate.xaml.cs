@@ -16,14 +16,13 @@ using System.Windows.Shapes;
 namespace StudioConcept.ActionItem
 {
     /// <summary>
-    /// Interaction logic for SequenceAction.xaml
+    /// Interaction logic for SequenceActionForTemplate.xaml
     /// </summary>
-    public partial class SequenceAction : UserControl
+    public partial class SequenceActionForTemplate : UserControl
     {
-        public SequenceAction()
+        public SequenceActionForTemplate()
         {
             InitializeComponent();
         }
-
     }
 }

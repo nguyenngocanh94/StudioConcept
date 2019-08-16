@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
+using StudioConcept.MVVM;
 
 namespace StudioConcept.Converter
 {
@@ -12,6 +9,12 @@ namespace StudioConcept.Converter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
+            var shape = values[0];
+            if (shape is IfShape)
+            {
+                return 0;
+            }
+
             return 1;
         }
 
