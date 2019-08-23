@@ -15,9 +15,13 @@ namespace StudioConcept.MVVM
                 
             }
         }
-
-        public override double UpperY => Y - 20;
-        public override double Height => _middleSpace + 40;
+        public double middleUpperY => Y + 20 + 8;
+        public double middleLowerY => Y + MiddleSpace + 20 + 8;
+        public override double OuterUpperY => Y - 20 - 8;
+        public override double OuterLowwerY => InnerLowerY + 20 + 8;
+        public override double InnerLowerY => Y + Height;
+        //dont ask me why
+        public override double Height => _middleSpace + 40 + 16;
         public override string Draw()
         {
             string aboveTemplate = $"m 0,4 A 4,4 0 0,1 4,0 H 12 c 2,0 3,1 4,2 l 4,4 c 1,1 2,2 4,2 h 12 c 2,0 3,-1 4,-2 l 4,-4 c 1,-1 2,-2 4,-2 H {Width} a 4,4 0 0,1 4,4 v 20  a 4,4 0 0,1 -4,4 H 64 c -2,0 -3,1 -4,2 l -4,4 c -1,1 -2,2 -4,2 h -12 c -2,0 -3,-1 -4,-2 l -4,-4 c -1,-1 -2,-2 -4,-2 h -8  a 4,4 0 0,0 -4,4 ";
@@ -30,19 +34,7 @@ namespace StudioConcept.MVVM
         public Color Color { get; set; }
         public Color TextColor { get; set; }
         
-
         public double FontSize { get; set; }
-
-        private string _text;
-        public string Text
-        {
-            get => _text;
-            set
-            {
-                _text = value;
-                OnPropertyChanged(nameof(Text));
-            }
-        }
 
         public Thickness MarginText { get; set; }
 
@@ -51,7 +43,7 @@ namespace StudioConcept.MVVM
             Width = width;
             _middleSpace = middleSpace;
             Color = color;
-            _text = text;
+            Text = text;
             Data = Draw();
         }
 

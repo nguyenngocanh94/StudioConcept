@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows;
+using System.Timers;
+using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 
 namespace StudioConcept.Extension
 {
     public static class MouseEventArgExtension
     {
+        private static Timer aTimer;
         /// <summary>
         /// determine mouse above(-1) or below(1)
         /// </summary>
@@ -19,7 +16,15 @@ namespace StudioConcept.Extension
         /// <returns></returns>
         public static int Direction(this MouseEventArgs e, Point originPoint, IInputElement mileStone)
         {
-           return originPoint.Y - e.GetPosition(mileStone).Y >= 0 ? 1 : -1;
+            aTimer = new System.Timers.Timer();
+            aTimer.Interval = 500;
+            double delta = 0;
+            aTimer.Elapsed += (s, ei) =>
+            {
+                delta = originPoint.Y - e.GetPosition(mileStone).Y;
+            };
+
+            return delta >= 0 ? 1 : -1;
         }
     }
 }

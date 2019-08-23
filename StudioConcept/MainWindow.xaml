@@ -11,16 +11,21 @@
         Title="MainWindow" Height="450" Width="1200">
 
     <Window.Resources>
-        <DataTemplate DataType="{x:Type mvvm:BaseShape}">
+        
+        <DataTemplate DataType="{x:Type mvvm:Sequence}">
             <action:SequenceAction></action:SequenceAction>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type mvvm:IfShape}">
+            <action:IfActionItem Shapes="{Binding}"></action:IfActionItem>
+        </DataTemplate>
+        
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"></ColumnDefinition>
-            <ColumnDefinition Width="7*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="3.5*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <ListView dd:DragDrop.IsDragSource="True" Background="Bisque" ItemsSource="{Binding DragSr}">
+        <ListView dd:DragDrop.IsDragSource="True" Background="Bisque" ItemsSource="{Binding DragSr}" Grid.ColumnSpan="2">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <action:SequenceActionForTemplate></action:SequenceActionForTemplate>
@@ -28,23 +33,13 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <ListView x:Name="Studio" ItemsSource="{Binding Shapes}" dd:DragDrop.IsDropTarget="True"
-                dd:DragDrop.DropHandler="{Binding}" Grid.Column="1">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Canvas IsItemsHost="True"></Canvas>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter
-                        Property="Canvas.Left"
-                        Value="{Binding X}"/>
-                    <Setter
-                        Property="Canvas.Top"
-                        Value="{Binding Y}"/>
-                </Style>
-            </ItemsControl.ItemContainerStyle>
-        </ListView>
+        <TreeView ItemsSource="{Binding Shapes}" ItemContainerStyle="{StaticResource IfShapeStyle}" Background="AntiqueWhite" x:Name="Studio" dd:DragDrop.IsDropTarget="True"
+                dd:DragDrop.DropHandler="{Binding}" Grid.Column="2">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type mvvm:BaseShape}" ItemsSource="{Binding ChildrenNode}">
+                    <action:SequenceAction></action:SequenceAction>
+                </HierarchicalDataTemplate>
+            </TreeView.Resources>
+        </TreeView>
     </Grid>
 </Window>

@@ -20,6 +20,12 @@ namespace StudioConcept.ActionItem
     /// </summary>
     public partial class SequenceAction : UserControl
     {
+        //public static readonly DependencyProperty ShadowProperty =
+        // DependencyProperty.Register("Shadow", typeof(bool), typeof(SequenceAction));
+
+        //public bool Shadow {
+        //    get { return (bool)GetValue(ShadowProperty); } 
+        // set { SetValue(ShadowProperty, value); }  }
         public SequenceAction()
         {
             InitializeComponent();

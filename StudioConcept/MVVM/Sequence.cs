@@ -20,16 +20,7 @@ namespace StudioConcept.MVVM
 
         public double FontSize { get; set; }
 
-        private string text;
-        public string Text {
-            get => text;
-            set
-            {
-                text = value;
-                OnPropertyChanged(nameof(Text));
-            }
-        }
-
+       
         public Thickness MarginText { get; set; }
 
         public Sequence(double width, double height, Color color, string text)
@@ -37,7 +28,7 @@ namespace StudioConcept.MVVM
             Width = width;
             Height = height;
             Color = color;
-            this.text = text;
+            Text = text;
             FontSize = 15;
             Data = Draw();
         }

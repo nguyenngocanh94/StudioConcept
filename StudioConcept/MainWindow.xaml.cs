@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using StudioConcept.MVVM;
+using Unity;
 
 namespace StudioConcept
 {
@@ -8,6 +9,7 @@ namespace StudioConcept
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static IUnityContainer container = new UnityContainer();
         public MainWindow()
         {
             InitializeComponent();

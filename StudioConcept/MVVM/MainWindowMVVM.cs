@@ -26,10 +26,11 @@ namespace StudioConcept.MVVM
         public ObservableCollection<BaseShape> Shapes => shapes;
         public ObservableCollection<BaseShape> DragSr => dragSr;
 
+
         public MainWindowMVVM(IInputElement studio)
         {
             dragSr.Add(new Sequence(240, 30, Colors.Blue, "Web"));
-            dragSr.Add(new IfShape(240, 68, Colors.Red, "If"));
+            dragSr.Add(new IfShape(240, 30, Colors.Red, "If"));
             ObserverService.MileStone = studio;
             ObserverService.Parent = Shapes;
         }
@@ -51,6 +52,7 @@ namespace StudioConcept.MVVM
         {
             var drop = (DropInfo) dropInfo;
             var item = (BaseShape) dropInfo.Data;
+
             BaseShape newItem = (BaseShape)item.Clone();
             newItem.X = drop.DropPosition.X;
             newItem.Y = drop.DropPosition.Y;

@@ -13,7 +13,8 @@
                         <Canvas.Resources>
                             <converter:ChildrenPositionConverter x:Key="ChildrenPositionCvt"/>
                         </Canvas.Resources>
-                        <item:SequenceAction x:Name="PART_Header"></item:SequenceAction>
+                        <item:SequenceAction x:Name="PART_Header" Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}">
+                        </item:SequenceAction>
                         <ItemsPresenter Name="ItemsPresenter">
                             <Canvas.Left>
                                 <MultiBinding Converter="{StaticResource ChildrenPositionConverter}">

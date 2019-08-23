@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StudioConcept.ActionItem"
              xmlns:mvvm="clr-namespace:StudioConcept.MVVM"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -17,8 +16,7 @@
     </UserControl.Resources>
     <TreeView ItemsSource="{Binding Shapes}" ItemContainerStyle="{StaticResource IfShapeStyle}">
         <TreeView.Resources>
-            <HierarchicalDataTemplate DataType="{x:Type mvvm:BaseShape}" 
-                                      ItemsSource="{Binding ChildrenNode}">
+            <HierarchicalDataTemplate DataType="{x:Type mvvm:BaseShape}" ItemsSource="{Binding ChildrenNode}">
                 <local:SequenceAction></local:SequenceAction>
             </HierarchicalDataTemplate>
         </TreeView.Resources>

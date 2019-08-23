@@ -16,9 +16,8 @@ namespace StudioConcept
         public TreeView()
         {
             Shapes = new List<BaseShape>();
-            BaseShape root = new IfShape(300, 60, Colors.Aqua, "IF");
-            root.ChildrenNode.Add(new Sequence(250, 30, Colors.Brown, "Web"));
-            root.ChildrenNode.Add(new Sequence(250, 30, Colors.Red, "Seq"));
+            BaseShape root = new Sequence(250, 30, Colors.Brown, "Web");
+
             Shapes.Add(root);
             InitializeComponent();
             DataContext = this;
