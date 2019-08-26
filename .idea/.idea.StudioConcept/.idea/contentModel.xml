@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\pc\.Rider2019.1\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\pc\.Rider2019.1\system\resharper-host\local\Transient\ReSharperHost\v191\SolutionCaches\_StudioConcept.1268025726.00" t="ExcludeRecursive" />
+    <e p="C:\Users\pc\Desktop\UI-Mock-Ups\StudioConcept" t="IncludeFlat">
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="StudioConcept" t="IncludeRecursive">
+        <e p="ActionItem" t="Include">
+          <e p="IfActionItem.xaml" t="Include" />
+          <e p="IfActionItem.xaml.cs" t="Include" />
+          <e p="SequenceAction.xaml" t="Include" />
+          <e p="SequenceAction.xaml.cs" t="Include" />
+          <e p="SequenceActionForTemplate.xaml" t="Include" />
+          <e p="SequenceActionForTemplate.xaml.cs" t="Include" />
+        </e>
+        <e p="App.config" t="Include" />
+        <e p="App.xaml" t="Include" />
+        <e p="App.xaml.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Command" t="Include">
+          <e p="BaseCommand.cs" t="Include" />
+        </e>
+        <e p="Converter" t="Include">
+          <e p="ChildrenEachPositionConverter.cs" t="Include" />
+          <e p="ChildrenPositionConverter.cs" t="Include" />
+          <e p="ColorBrushConverter.cs" t="Include" />
+          <e p="MvvmLightConverter.cs" t="Include" />
+          <e p="ShapeTextPositionConverter.cs" t="Include" />
+        </e>
+        <e p="Extension" t="Include">
+          <e p="MouseDirection.cs" t="Include" />
+          <e p="MouseEventArgExtension.cs" t="Include" />
+        </e>
+        <e p="ListView.xaml" t="Include" />
+        <e p="ListView.xaml.cs" t="Include" />
+        <e p="MainWindow.xaml" t="Include" />
+        <e p="MainWindow.xaml.cs" t="Include" />
+        <e p="MVVM" t="Include">
+          <e p="BaseShape.cs" t="Include" />
+          <e p="IfShape.cs" t="Include" />
+          <e p="MainWindowMVVM.cs" t="Include" />
+          <e p="Sequence.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Observer" t="Include">
+          <e p="ObserverService.cs" t="Include" />
+        </e>
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+          <e p="Resources.Designer.cs" t="Include" />
+          <e p="Resources.resx" t="Include" />
+          <e p="Settings.Designer.cs" t="Include" />
+          <e p="Settings.settings" t="Include" />
+        </e>
+        <e p="StudioConcept.csproj" t="IncludeRecursive" />
+        <e p="Style" t="Include">
+          <e p="TreeViewStyle.xaml" t="Include" />
+        </e>
+        <e p="Tree" t="Include">
+          <e p="Node.cs" t="Include" />
+        </e>
+        <e p="TreeView.xaml" t="Include" />
+        <e p="TreeView.xaml.cs" t="Include" />
+        <e p="ViewModel" t="Include">
+          <e p="MainViewModel.cs" t="Include" />
+          <e p="ViewModelLocator.cs" t="Include" />
+        </e>
+        <e p="Wrapper" t="Include">
+          <e p="Wrapper.cs" t="Include" />
+        </e>
+      </e>
+      <e p="StudioConcept.sln" t="IncludeFlat" />
+    </e>
+  </component>
+</project>

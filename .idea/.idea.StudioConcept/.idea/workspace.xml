@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6348827c-91c1-4fcc-bfd0-cd49c3e12e5b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/StudioConcept.sln" beforeDir="false" afterPath="$PROJECT_DIR$/StudioConcept.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StudioConcept/ActionItem/SequenceAction.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/StudioConcept/ActionItem/SequenceAction.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StudioConcept/Converter/ColorBrushConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StudioConcept/Converter/ColorBrushConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StudioConcept/MVVM/BaseShape.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StudioConcept/MVVM/BaseShape.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StudioConcept/MainWindow.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/StudioConcept/MainWindow.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StudioConcept/Observer/ObserverService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StudioConcept/Observer/ObserverService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StudioConcept/StudioConcept.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/StudioConcept/StudioConcept.csproj" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/StudioConcept/MainWindow.xaml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <marker date="1566284678590" expanded="true" signature="0:2275" ph="&lt;&lt;Window.Resources&gt;&#10;        &lt;DataTemplate DataType=&quot;{x:Type mvvm:BaseShape}&quot;&gt;&#10;            &lt;action:SequenceAction&gt;&lt;/action:SequenceAction&gt;&#10;        &lt;/DataTemplate&gt;&#10;    &lt;/Window.Resources&gt; &lt;Grid&gt;&#10;        &lt;Grid.ColumnDefinitions&gt;&#10;            &lt;ColumnDefinition Width=&quot;3*&quot;&gt;&lt;/ColumnDefinition&gt;&#10;            &lt;ColumnDefinition Width=&quot;7*&quot;&gt;&lt;/ColumnDefinition&gt;&#10;        &lt;/Grid.ColumnDefinitions&gt;&#10;        &lt;ListView dd:DragDrop.IsDragSource=&quot;True&quot; Background=&quot;Bisque&quot; ItemsSource=&quot;{Binding DragSr}&quot;&gt;&#10;            &lt;ListView.ItemTemplate&gt;&#10;                &lt;DataTemplate&gt;&#10;                    &lt;action:SequenceActionForTemplate&gt;&lt;/action:SequenceActionForTemplate&gt;&#10;                &lt;/DataTemplate&gt;&#10;            &lt;/ListView.ItemTemplate&gt;&#10;        &lt;/ListView&gt;&#10;&#10;        &lt;ListView Background=&quot;DarkGray&quot; x:Name=&quot;Studio&quot; ItemsSource=&quot;{Binding Shapes}&quot; dd:DragDrop.IsDropTarget=&quot;True&quot;&#10;                dd:DragDrop.DropHandler=&quot;{Binding}&quot; Grid.Column=&quot;1&quot;&gt;&#10;            &lt;ItemsControl.ItemsPanel&gt;&#10;                &lt;ItemsPanelTemplate&gt;&#10;                    &lt;Canvas IsItemsHost=&quot;True&quot;&gt;&lt;/Canvas&gt;&#10;                &lt;/ItemsPanelTemplate&gt;&#10;            &lt;/ItemsControl.ItemsPanel&gt;&#10;            &lt;ItemsControl.ItemContainerStyle&gt;&#10;                &lt;Style TargetType=&quot;ListViewItem&quot;&gt;&#10;                    &lt;Setter&#10;                        Property=&quot;Canvas.Left&quot;&#10;                        Value=&quot;{Binding X}&quot;/&gt;&#10;                    &lt;Setter&#10;                        Property=&quot;Canvas.Top&quot;&#10;                        Value=&quot;{Binding Y}&quot;/&gt;&#10;                &lt;/Style&gt;&#10;            &lt;/ItemsControl.ItemContainerStyle&gt;&#10;        &lt;/ListView&gt;&#10;    &lt;/Grid&gt;.../&gt;" />
+                <marker date="1566284678590" expanded="true" signature="694:878" ph="&lt;&lt;DataTemplate DataType=&quot;{x:Type mvvm:BaseShape}&quot;&gt;&#10;            &lt;action:SequenceAction&gt;&lt;/action:SequenceAction&gt;&#10;        &lt;/DataTemplate&gt;.../&gt;" />
+                <marker date="1566284678590" expanded="true" signature="721:854" ph="&lt;&lt;action:SequenceAction&gt;&lt;/action:SequenceAction&gt;.../&gt;" />
+                <marker date="1566284678590" expanded="true" signature="883:2265" ph="&lt;&lt;Grid.ColumnDefinitions&gt;&#10;            &lt;ColumnDefinition Width=&quot;3*&quot;&gt;&lt;/ColumnDefinition&gt;&#10;            &lt;ColumnDefinition Width=&quot;7*&quot;&gt;&lt;/ColumnDefinition&gt;&#10;        &lt;/Grid.ColumnDefinitions&gt; &lt;ListView dd:DragDrop.IsDragSource=&quot;True&quot; Background=&quot;Bisque&quot; ItemsSource=&quot;{Binding DragSr}&quot;&gt;&#10;            &lt;ListView.ItemTemplate&gt;&#10;                &lt;DataTemplate&gt;&#10;                    &lt;action:SequenceActionForTemplate&gt;&lt;/action:SequenceActionForTemplate&gt;&#10;                &lt;/DataTemplate&gt;&#10;            &lt;/ListView.ItemTemplate&gt;&#10;        &lt;/ListView&gt; &lt;ListView Background=&quot;DarkGray&quot; x:Name=&quot;Studio&quot; ItemsSource=&quot;{Binding Shapes}&quot; dd:DragDrop.IsDropTarget=&quot;True&quot;&#10;                dd:DragDrop.DropHandler=&quot;{Binding}&quot; Grid.Column=&quot;1&quot;&gt;&#10;            &lt;ItemsControl.ItemsPanel&gt;&#10;                &lt;ItemsPanelTemplate&gt;&#10;                    &lt;Canvas IsItemsHost=&quot;True&quot;&gt;&lt;/Canvas&gt;&#10;                &lt;/ItemsPanelTemplate&gt;&#10;            &lt;/ItemsControl.ItemsPanel&gt;&#10;            &lt;ItemsControl.ItemContainerStyle&gt;&#10;                &lt;Style TargetType=&quot;ListViewItem&quot;&gt;&#10;                    &lt;Setter&#10;                        Property=&quot;Canvas.Left&quot;&#10;                        Value=&quot;{Binding X}&quot;/&gt;&#10;                    &lt;Setter&#10;                        Property=&quot;Canvas.Top&quot;&#10;                        Value=&quot;{Binding Y}&quot;/&gt;&#10;                &lt;/Style&gt;&#10;            &lt;/ItemsControl.ItemContainerStyle&gt;&#10;        &lt;/ListView&gt;.../&gt;" />
+                <marker date="1566284678590" expanded="true" signature="898:1078" ph="&lt;&lt;ColumnDefinition Width=&quot;3*&quot;&gt;&lt;/ColumnDefinition&gt; &lt;ColumnDefinition Width=&quot;7*&quot;&gt;&lt;/ColumnDefinition&gt;.../&gt;" />
+                <marker date="1566284678590" expanded="true" signature="1087:1426" ph="&lt;&lt;ListView.ItemTemplate&gt;&#10;                &lt;DataTemplate&gt;&#10;                    &lt;action:SequenceActionForTemplate&gt;&lt;/action:SequenceActionForTemplate&gt;&#10;                &lt;/DataTemplate&gt;&#10;            &lt;/ListView.ItemTemplate&gt;.../&gt;" />
+                <marker date="1566284678590" expanded="true" signature="1193:1406" ph="&lt;&lt;DataTemplate&gt;&#10;                    &lt;action:SequenceActionForTemplate&gt;&lt;/action:SequenceActionForTemplate&gt;&#10;                &lt;/DataTemplate&gt;.../&gt;" />
+                <marker date="1566284678590" expanded="true" signature="1233:1369" ph="&lt;&lt;action:SequenceActionForTemplate&gt;&lt;/action:SequenceActionForTemplate&gt;.../&gt;" />
+                <marker date="1566284678590" expanded="true" signature="1436:2253" ph="&lt;&lt;ItemsControl.ItemsPanel&gt;&#10;                &lt;ItemsPanelTemplate&gt;&#10;                    &lt;Canvas IsItemsHost=&quot;True&quot;&gt;&lt;/Canvas&gt;&#10;                &lt;/ItemsPanelTemplate&gt;&#10;            &lt;/ItemsControl.ItemsPanel&gt; &lt;ItemsControl.ItemContainerStyle&gt;&#10;                &lt;Style TargetType=&quot;ListViewItem&quot;&gt;&#10;                    &lt;Setter&#10;                        Property=&quot;Canvas.Left&quot;&#10;                        Value=&quot;{Binding X}&quot;/&gt;&#10;                    &lt;Setter&#10;                        Property=&quot;Canvas.Top&quot;&#10;                        Value=&quot;{Binding Y}&quot;/&gt;&#10;                &lt;/Style&gt;&#10;            &lt;/ItemsControl.ItemContainerStyle&gt;.../&gt;" />
+                <marker date="1566284678590" expanded="true" signature="1628:1824" ph="&lt;&lt;ItemsPanelTemplate&gt;&#10;                    &lt;Canvas IsItemsHost=&quot;True&quot;&gt;&lt;/Canvas&gt;&#10;                &lt;/ItemsPanelTemplate&gt;.../&gt;" />
+                <marker date="1566284678590" expanded="true" signature="1670:1785" ph="&lt;&lt;Canvas IsItemsHost=&quot;True&quot;&gt;&lt;/Canvas&gt;.../&gt;" />
+                <marker date="1566284678590" expanded="true" signature="1837:2233" ph="&lt;&lt;Style TargetType=&quot;ListViewItem&quot;&gt;&#10;                    &lt;Setter&#10;                        Property=&quot;Canvas.Left&quot;&#10;                        Value=&quot;{Binding X}&quot;/&gt;&#10;                    &lt;Setter&#10;                        Property=&quot;Canvas.Top&quot;&#10;                        Value=&quot;{Binding Y}&quot;/&gt;&#10;                &lt;/Style&gt;.../&gt;" />
+                <marker date="1566284678590" expanded="true" signature="1887:2186" ph="&lt;&lt;Setter&#10;                        Property=&quot;Canvas.Left&quot;&#10;                        Value=&quot;{Binding X}&quot;/&gt; &lt;Setter&#10;                        Property=&quot;Canvas.Top&quot;&#10;                        Value=&quot;{Binding Y}&quot;/&gt;.../&gt;" />
+                <marker date="1566284678590" expanded="true" signature="1941:2041" ph="&lt;.../&gt;" />
+                <marker date="1566284678590" expanded="true" signature="2062:2161" ph="&lt;.../&gt;" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/StudioConcept/Observer/ObserverService.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="137">
+              <caret line="17" column="35" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
+              <folding>
+                <marker date="1566287113354" expanded="false" signature="6:232" ph="..." />
+                <marker date="1566287113354" expanded="true" signature="266:1612" ph="{...}" />
+                <marker date="1566287113354" expanded="true" signature="301:1610" ph="{...}" />
+                <marker date="1566287113354" expanded="true" signature="501:1604" ph="{...}" />
+                <marker date="1566287113354" expanded="true" signature="545:602" ph="{...}" />
+                <marker date="1566287113354" expanded="true" signature="778:1196" ph="{...}" />
+                <marker date="1566287113354" expanded="true" signature="860:1180" ph="{...}" />
+                <marker date="1566287113354" expanded="true" signature="932:1127" ph="{...}" />
+                <marker date="1566287113354" expanded="true" signature="1012:1105" ph="{...}" />
+                <marker date="1566287113354" expanded="true" signature="1255:1592" ph="{...}" />
+                <marker date="1566287113354" expanded="true" signature="1376:1547" ph="{...}" />
+                <marker date="1566287113354" expanded="true" signature="1448:1529" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/StudioConcept/MVVM/BaseShape.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-204">
+              <caret line="154" column="21" lean-forward="true" selection-start-line="154" selection-start-column="21" selection-end-line="154" selection-end-column="21" />
+              <folding>
+                <marker date="1566289993252" expanded="false" signature="6:357" ph="..." />
+                <marker date="1566289993252" expanded="true" signature="388:6748" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="470:6746" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="921:1028" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="1184:1518" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="1233:1508" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="1356:1420" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="1570:1904" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="1619:1894" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="1742:1806" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="1971:2151" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="2020:2141" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="2214:2382" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="2259:2372" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="2440:2610" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="2492:2600" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="2672:2849" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="2726:2839" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="2920:3112" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="2979:3102" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="3486:5961" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="3560:3798" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="3866:5569" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="3986:5077" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="4221:5038" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="4577:4756" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="4785:4964" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="5127:5555" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="5410:5497" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="5637:5904" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="6158:6651" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="6365:6551" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="6431:6537" ph="{...}" />
+                <marker date="1566289993252" expanded="true" signature="6719:6740" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/StudioConcept/MainWindow.xaml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/StudioConcept/Observer/ObserverService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/StudioConcept/MVVM/BaseShape.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/StudioConcept/MVVM/BaseShape.cs" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="240" />
+    <option name="y" value="131" />
+    <option name="width" value="1440" />
+    <option name="height" value="788" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="SolutionExplorer" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="FileSystemExplorer" />
+      <pane id="SolutionExplorer">
+        <subPane>
+          <expand>
+            <path>
+              <item name="" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="StudioConcept" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="StudioConcept" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="StudioConcept" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="StudioConcept" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="StudioConcept" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Observer" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="StudioConcept" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="StudioConcept" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="MainWindow.xaml" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+        <option name="show-all-files" value="false" />
+      </pane>
+      <pane id="AssemblyExplorer" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Rider.DefaultBreakpoints.AreToggled" value="true" />
+    <property name="Rider.ProjectViewActivator.IsNotFirstRun" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="Default" type="DotNetProject" factoryName=".NET Project">
+      <option name="EXE_PATH" value="$PROJECT_DIR$/StudioConcept/bin/Debug/StudioConcept.exe" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/StudioConcept/bin/Debug" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="PROJECT_PATH" value="$PROJECT_DIR$/StudioConcept/StudioConcept.csproj" />
+      <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
+      <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
+      <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
+      <option name="PROJECT_KIND" value="Console" />
+      <option name="PROJECT_TFM" value=".NETFramework,Version=v4.7.2" />
+      <method v="2">
+        <option name="Build" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6348827c-91c1-4fcc-bfd0-cd49c3e12e5b" name="Default Changelist" comment="" />
+      <created>1566289285978</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1566289285978</updated>
+      <workItem from="1566289289292" duration="718000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="718000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <layout>
+      <window_info id="Favorites" side_tool="true" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="NuGet" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="XAML Preview" />
+      <window_info anchor="bottom" id="Unit Tests" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Performance Profiler" />
+      <window_info anchor="bottom" id="Build" weight="0.32911393" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32911393" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Errors In Solution" />
+      <window_info anchor="right" id="Database" />
+      <window_info anchor="right" id="Unit Tests Coverage" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="null" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" suspend="NONE" type="DotNet Exception Breakpoints">
+          <properties exception="System.Threading.ThreadAbortException" displayValue="System.Threading.ThreadAbortException" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/StudioConcept/MainWindow.xaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <marker date="1566284678590" expanded="true" signature="0:2275" ph="&lt;&lt;Window.Resources&gt;&#10;        &lt;DataTemplate DataType=&quot;{x:Type mvvm:BaseShape}&quot;&gt;&#10;            &lt;action:SequenceAction&gt;&lt;/action:SequenceAction&gt;&#10;        &lt;/DataTemplate&gt;&#10;    &lt;/Window.Resources&gt; &lt;Grid&gt;&#10;        &lt;Grid.ColumnDefinitions&gt;&#10;            &lt;ColumnDefinition Width=&quot;3*&quot;&gt;&lt;/ColumnDefinition&gt;&#10;            &lt;ColumnDefinition Width=&quot;7*&quot;&gt;&lt;/ColumnDefinition&gt;&#10;        &lt;/Grid.ColumnDefinitions&gt;&#10;        &lt;ListView dd:DragDrop.IsDragSource=&quot;True&quot; Background=&quot;Bisque&quot; ItemsSource=&quot;{Binding DragSr}&quot;&gt;&#10;            &lt;ListView.ItemTemplate&gt;&#10;                &lt;DataTemplate&gt;&#10;                    &lt;action:SequenceActionForTemplate&gt;&lt;/action:SequenceActionForTemplate&gt;&#10;                &lt;/DataTemplate&gt;&#10;            &lt;/ListView.ItemTemplate&gt;&#10;        &lt;/ListView&gt;&#10;&#10;        &lt;ListView Background=&quot;DarkGray&quot; x:Name=&quot;Studio&quot; ItemsSource=&quot;{Binding Shapes}&quot; dd:DragDrop.IsDropTarget=&quot;True&quot;&#10;                dd:DragDrop.DropHandler=&quot;{Binding}&quot; Grid.Column=&quot;1&quot;&gt;&#10;            &lt;ItemsControl.ItemsPanel&gt;&#10;                &lt;ItemsPanelTemplate&gt;&#10;                    &lt;Canvas IsItemsHost=&quot;True&quot;&gt;&lt;/Canvas&gt;&#10;                &lt;/ItemsPanelTemplate&gt;&#10;            &lt;/ItemsControl.ItemsPanel&gt;&#10;            &lt;ItemsControl.ItemContainerStyle&gt;&#10;                &lt;Style TargetType=&quot;ListViewItem&quot;&gt;&#10;                    &lt;Setter&#10;                        Property=&quot;Canvas.Left&quot;&#10;                        Value=&quot;{Binding X}&quot;/&gt;&#10;                    &lt;Setter&#10;                        Property=&quot;Canvas.Top&quot;&#10;                        Value=&quot;{Binding Y}&quot;/&gt;&#10;                &lt;/Style&gt;&#10;            &lt;/ItemsControl.ItemContainerStyle&gt;&#10;        &lt;/ListView&gt;&#10;    &lt;/Grid&gt;.../&gt;" />
+            <marker date="1566284678590" expanded="true" signature="694:878" ph="&lt;&lt;DataTemplate DataType=&quot;{x:Type mvvm:BaseShape}&quot;&gt;&#10;            &lt;action:SequenceAction&gt;&lt;/action:SequenceAction&gt;&#10;        &lt;/DataTemplate&gt;.../&gt;" />
+            <marker date="1566284678590" expanded="true" signature="721:854" ph="&lt;&lt;action:SequenceAction&gt;&lt;/action:SequenceAction&gt;.../&gt;" />
+            <marker date="1566284678590" expanded="true" signature="883:2265" ph="&lt;&lt;Grid.ColumnDefinitions&gt;&#10;            &lt;ColumnDefinition Width=&quot;3*&quot;&gt;&lt;/ColumnDefinition&gt;&#10;            &lt;ColumnDefinition Width=&quot;7*&quot;&gt;&lt;/ColumnDefinition&gt;&#10;        &lt;/Grid.ColumnDefinitions&gt; &lt;ListView dd:DragDrop.IsDragSource=&quot;True&quot; Background=&quot;Bisque&quot; ItemsSource=&quot;{Binding DragSr}&quot;&gt;&#10;            &lt;ListView.ItemTemplate&gt;&#10;                &lt;DataTemplate&gt;&#10;                    &lt;action:SequenceActionForTemplate&gt;&lt;/action:SequenceActionForTemplate&gt;&#10;                &lt;/DataTemplate&gt;&#10;            &lt;/ListView.ItemTemplate&gt;&#10;        &lt;/ListView&gt; &lt;ListView Background=&quot;DarkGray&quot; x:Name=&quot;Studio&quot; ItemsSource=&quot;{Binding Shapes}&quot; dd:DragDrop.IsDropTarget=&quot;True&quot;&#10;                dd:DragDrop.DropHandler=&quot;{Binding}&quot; Grid.Column=&quot;1&quot;&gt;&#10;            &lt;ItemsControl.ItemsPanel&gt;&#10;                &lt;ItemsPanelTemplate&gt;&#10;                    &lt;Canvas IsItemsHost=&quot;True&quot;&gt;&lt;/Canvas&gt;&#10;                &lt;/ItemsPanelTemplate&gt;&#10;            &lt;/ItemsControl.ItemsPanel&gt;&#10;            &lt;ItemsControl.ItemContainerStyle&gt;&#10;                &lt;Style TargetType=&quot;ListViewItem&quot;&gt;&#10;                    &lt;Setter&#10;                        Property=&quot;Canvas.Left&quot;&#10;                        Value=&quot;{Binding X}&quot;/&gt;&#10;                    &lt;Setter&#10;                        Property=&quot;Canvas.Top&quot;&#10;                        Value=&quot;{Binding Y}&quot;/&gt;&#10;                &lt;/Style&gt;&#10;            &lt;/ItemsControl.ItemContainerStyle&gt;&#10;        &lt;/ListView&gt;.../&gt;" />
+            <marker date="1566284678590" expanded="true" signature="898:1078" ph="&lt;&lt;ColumnDefinition Width=&quot;3*&quot;&gt;&lt;/ColumnDefinition&gt; &lt;ColumnDefinition Width=&quot;7*&quot;&gt;&lt;/ColumnDefinition&gt;.../&gt;" />
+            <marker date="1566284678590" expanded="true" signature="1087:1426" ph="&lt;&lt;ListView.ItemTemplate&gt;&#10;                &lt;DataTemplate&gt;&#10;                    &lt;action:SequenceActionForTemplate&gt;&lt;/action:SequenceActionForTemplate&gt;&#10;                &lt;/DataTemplate&gt;&#10;            &lt;/ListView.ItemTemplate&gt;.../&gt;" />
+            <marker date="1566284678590" expanded="true" signature="1193:1406" ph="&lt;&lt;DataTemplate&gt;&#10;                    &lt;action:SequenceActionForTemplate&gt;&lt;/action:SequenceActionForTemplate&gt;&#10;                &lt;/DataTemplate&gt;.../&gt;" />
+            <marker date="1566284678590" expanded="true" signature="1233:1369" ph="&lt;&lt;action:SequenceActionForTemplate&gt;&lt;/action:SequenceActionForTemplate&gt;.../&gt;" />
+            <marker date="1566284678590" expanded="true" signature="1436:2253" ph="&lt;&lt;ItemsControl.ItemsPanel&gt;&#10;                &lt;ItemsPanelTemplate&gt;&#10;                    &lt;Canvas IsItemsHost=&quot;True&quot;&gt;&lt;/Canvas&gt;&#10;                &lt;/ItemsPanelTemplate&gt;&#10;            &lt;/ItemsControl.ItemsPanel&gt; &lt;ItemsControl.ItemContainerStyle&gt;&#10;                &lt;Style TargetType=&quot;ListViewItem&quot;&gt;&#10;                    &lt;Setter&#10;                        Property=&quot;Canvas.Left&quot;&#10;                        Value=&quot;{Binding X}&quot;/&gt;&#10;                    &lt;Setter&#10;                        Property=&quot;Canvas.Top&quot;&#10;                        Value=&quot;{Binding Y}&quot;/&gt;&#10;                &lt;/Style&gt;&#10;            &lt;/ItemsControl.ItemContainerStyle&gt;.../&gt;" />
+            <marker date="1566284678590" expanded="true" signature="1628:1824" ph="&lt;&lt;ItemsPanelTemplate&gt;&#10;                    &lt;Canvas IsItemsHost=&quot;True&quot;&gt;&lt;/Canvas&gt;&#10;                &lt;/ItemsPanelTemplate&gt;.../&gt;" />
+            <marker date="1566284678590" expanded="true" signature="1670:1785" ph="&lt;&lt;Canvas IsItemsHost=&quot;True&quot;&gt;&lt;/Canvas&gt;.../&gt;" />
+            <marker date="1566284678590" expanded="true" signature="1837:2233" ph="&lt;&lt;Style TargetType=&quot;ListViewItem&quot;&gt;&#10;                    &lt;Setter&#10;                        Property=&quot;Canvas.Left&quot;&#10;                        Value=&quot;{Binding X}&quot;/&gt;&#10;                    &lt;Setter&#10;                        Property=&quot;Canvas.Top&quot;&#10;                        Value=&quot;{Binding Y}&quot;/&gt;&#10;                &lt;/Style&gt;.../&gt;" />
+            <marker date="1566284678590" expanded="true" signature="1887:2186" ph="&lt;&lt;Setter&#10;                        Property=&quot;Canvas.Left&quot;&#10;                        Value=&quot;{Binding X}&quot;/&gt; &lt;Setter&#10;                        Property=&quot;Canvas.Top&quot;&#10;                        Value=&quot;{Binding Y}&quot;/&gt;.../&gt;" />
+            <marker date="1566284678590" expanded="true" signature="1941:2041" ph="&lt;.../&gt;" />
+            <marker date="1566284678590" expanded="true" signature="2062:2161" ph="&lt;.../&gt;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StudioConcept/Observer/ObserverService.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="137">
+          <caret line="17" column="35" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
+          <folding>
+            <marker date="1566287113354" expanded="false" signature="6:232" ph="..." />
+            <marker date="1566287113354" expanded="true" signature="266:1612" ph="{...}" />
+            <marker date="1566287113354" expanded="true" signature="301:1610" ph="{...}" />
+            <marker date="1566287113354" expanded="true" signature="501:1604" ph="{...}" />
+            <marker date="1566287113354" expanded="true" signature="545:602" ph="{...}" />
+            <marker date="1566287113354" expanded="true" signature="778:1196" ph="{...}" />
+            <marker date="1566287113354" expanded="true" signature="860:1180" ph="{...}" />
+            <marker date="1566287113354" expanded="true" signature="932:1127" ph="{...}" />
+            <marker date="1566287113354" expanded="true" signature="1012:1105" ph="{...}" />
+            <marker date="1566287113354" expanded="true" signature="1255:1592" ph="{...}" />
+            <marker date="1566287113354" expanded="true" signature="1376:1547" ph="{...}" />
+            <marker date="1566287113354" expanded="true" signature="1448:1529" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StudioConcept/MVVM/BaseShape.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-204">
+          <caret line="154" column="21" lean-forward="true" selection-start-line="154" selection-start-column="21" selection-end-line="154" selection-end-column="21" />
+          <folding>
+            <marker date="1566289993252" expanded="false" signature="6:357" ph="..." />
+            <marker date="1566289993252" expanded="true" signature="388:6748" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="470:6746" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="921:1028" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="1184:1518" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="1233:1508" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="1356:1420" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="1570:1904" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="1619:1894" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="1742:1806" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="1971:2151" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="2020:2141" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="2214:2382" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="2259:2372" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="2440:2610" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="2492:2600" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="2672:2849" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="2726:2839" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="2920:3112" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="2979:3102" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="3486:5961" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="3560:3798" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="3866:5569" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="3986:5077" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="4221:5038" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="4577:4756" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="4785:4964" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="5127:5555" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="5410:5497" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="5637:5904" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="6158:6651" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="6365:6551" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="6431:6537" ph="{...}" />
+            <marker date="1566289993252" expanded="true" signature="6719:6740" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

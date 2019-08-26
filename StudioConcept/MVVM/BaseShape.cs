@@ -15,7 +15,7 @@ using Point = System.Windows.Point;
 
 namespace StudioConcept.MVVM
 {
-    public abstract class BaseShape : INotifyPropertyChanged, INode, ICloneable
+    public abstract class BaseShape : INotifyPropertyChanged, ICloneable, INode
     {
         #region for Base property
         private string _text;
@@ -27,11 +27,8 @@ namespace StudioConcept.MVVM
         private double _innerY;
         private MediaColor _strokeColor;
         private bool _isNeedShadow;
-        public HashSet<BaseShape> groupList = new HashSet<BaseShape>();
-        /// <summary>
-        /// the pointer next
-        /// </summary>
-        public BaseShape next;
+        public bool _catch;
+       
         public bool IsNeedShadow
         {
             get => _isNeedShadow;
@@ -40,6 +37,88 @@ namespace StudioConcept.MVVM
                 _isNeedShadow = value;
                 OnPropertyChanged(nameof(IsNeedShadow));
             }
+        }
+
+        private BaseShape _next;
+        public BaseShape Next
+        {
+            get=> _next;
+            set => _next = value;
+        }
+
+        private BaseShape _prev;
+
+        public BaseShape Prev
+        {
+            get => _prev;
+            set => _prev = value;
+        }
+
+        public bool IsTail()
+        {
+            return Next == null;
+        }
+
+        public bool IsHead()
+        {
+            return Prev == null;
+        }
+
+        public bool IsAlone()
+        {
+            return Prev == null && Next == null;
+        }
+
+        public BaseShape GetHead()
+        {
+            var head = Prev;
+            if (!head.IsHead())
+            {
+                head = head.Prev;
+            }
+
+            return head;
+        }
+
+        public BaseShape GetTail()
+        {
+            var tail = Next;
+            if (!tail.IsTail())
+            {
+                tail = tail.Next;
+            }
+
+            return tail;
+        }
+        
+        public void DoAllWithoutHead(Action<BaseShape> action)
+        {
+            if (IsTail())
+            {
+                return;
+            }
+            var current = Next;
+            while (current != null)
+            {
+                action(current);
+                current = current.Next;
+            }
+        }
+
+        public bool Contain(BaseShape other)
+        {
+            var current = this;
+            while (current!=null)
+            {
+                if (current==other)
+                {
+                    return true;
+                }
+
+                current = current.Next;
+            }
+
+            return false;
         }
 
         public string Text
@@ -55,7 +134,7 @@ namespace StudioConcept.MVVM
         public virtual double Height { get; set; }
         public abstract string Draw();
         public virtual double OuterUpperY => Y - Height;
-        public virtual double OuterLowwerY => InnerLowerY + Height;
+        public virtual double OuterLowerY => InnerLowerY + Height;
         public virtual double InnerLowerY => Y + Height;
         
         public double X
@@ -179,12 +258,12 @@ namespace StudioConcept.MVVM
                         mvvmSource.trackingService.Tracking();
                         mvvmSource.X += dragDelta.X;
                         mvvmSource.Y += dragDelta.Y;
-                        var temp = mvvmSource.next;
+                        var temp = (BaseShape)mvvmSource.Next;
                         while (temp!=null)
                         {
                             temp.X+= dragDelta.X;
                             temp.Y+= dragDelta.Y;
-                            temp = temp.next;
+                            temp = (BaseShape) temp.Next;
                         }
                         originPoint = currentPoint;
                     }
@@ -237,6 +316,8 @@ namespace StudioConcept.MVVM
 
         public List<BaseShape> ChildrenNode
             => _childrenNode ?? (_childrenNode = new List<BaseShape>());
+
+        
         #endregion
         public object Clone()
         {

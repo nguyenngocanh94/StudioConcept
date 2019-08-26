@@ -14,9 +14,9 @@ namespace StudioConcept.Observer
         public static ObservableCollection<BaseShape> Parent;
         public static IInputElement MileStone;
         private BaseShape pivot;
-        private BaseShape interact;
+        private BaseShape otherShape;
         private HashSet<BaseShape> interactedList;
-        public EventHandler<BaseShape> magnet;
+        public EventHandler<BaseShape> interact;
         public EventHandler<BaseShape> warning;
         public ObserverService(BaseShape pivot)
         {
@@ -30,59 +30,80 @@ namespace StudioConcept.Observer
             {
                 return;
             }
-
-            var temp = Parent.FirstOrDefault(i =>
+            // remove itself and its child.
+            var interactSet = Parent.Where(i =>
             {
-                // drag to bottom of other
-                if (Math.Abs(pivot.X - i.X) < 40 && pivot.OuterUpperY < i.OuterLowwerY && pivot.OuterUpperY > i.Y)
+                if (i == pivot)
                 {
-                    magnet = null;
-                    magnet += MagnetBot;
+                    return false;
+                }
+
+                if (pivot.Contain(i))
+                {
+                    return false;
+                }
+
+                return true;
+            }).ToList();
+
+            var temp = interactSet.FirstOrDefault(i =>
+            {
+                
+                // drag to bottom of other
+                if (Math.Abs(pivot.X - i.X) < 40 && pivot.OuterUpperY < i.OuterLowerY && pivot.OuterUpperY > i.Y)
+                {
+                    interact = null;
+                    interact += MagnetBot;
                     return true;
                 }
                 // drag to above of other
-                if (Math.Abs(pivot.X - i.X) < 40 && pivot.OuterLowwerY > i.OuterUpperY && pivot.Y < i.Y)
+                if (Math.Abs(pivot.X - i.X) < 40 && pivot.OuterLowerY > i.OuterUpperY && pivot.Y < i.Y)
                 {
-                    magnet = null;
-                    magnet += MagnetTop;
+                    interact = null;
+                    interact += MagnetTop;
                     return true;
                 }
                 // drag to middle of other, only for shape that have child
-//                if(Math.Abs(pivot.X - i.X) < 40 && i is IfShape && pivot.Y > i.Y && pivot.InnerLowerY < i.InnerLowerY)
-//                {
-//                   
-//                    return true;
-//                }
+                if(Math.Abs(pivot.X - i.X) < 40 && i is IfShape && pivot.Y > i.Y && pivot.InnerLowerY < i.InnerLowerY)
+                {
+                   
+                    return true;
+                }
 
                 return false;
             });
 
             if (temp!=null)
             {
-                if (interact!=null)
+                if (!temp.IsTail())
                 {
-                    if (interact!=temp)
+                    interact += MagnetMiddle;
+                    otherShape = temp;
+                }
+                if (otherShape!=null)
+                {
+                    if (otherShape!=temp)
                     {
-                        interact.StrokeColor = transparent;
+                        otherShape.StrokeColor = transparent;
                         warning?.Invoke(this, temp);
-                        interact = temp;
+                        otherShape = temp;
                     }
                 }
                 else
                 {
-                    interact = temp;
+                    otherShape = temp;
                     warning?.Invoke(this, temp);
                 }
             }
             else
             {
-                magnet = null;
-                pivot.groupList.Clear();
+                interact = null;
+                RemoveLinked();
                 pivot.StrokeColor = transparent;
-                if (interact!=null)
+                if (otherShape!=null)
                 {
-                    interact.StrokeColor = transparent;
-                    interact = null;
+                    otherShape.StrokeColor = transparent;
+                    otherShape = null;
                 }
             }
 
@@ -90,7 +111,8 @@ namespace StudioConcept.Observer
 
         public void Magnet()
         {
-            magnet?.Invoke(this, interact);
+            interact?.Invoke(this, otherShape);
+            interact = null;
         }
 
         private void MagnetBot(object source, BaseShape other)
@@ -100,19 +122,23 @@ namespace StudioConcept.Observer
                 return;
             }
 
-            other.next = pivot;
-            interactedList.Add(other);
+            
             pivot.X = other.X;
+            var delta = Math.Abs(other.InnerLowerY + 8.8 - pivot.Y);
             pivot.Y = other.InnerLowerY + 8.8;
-            var temp = pivot.next;
+            
+            var temp = pivot.Next;
             while (temp != null)
             {
                 temp.X = other.X;
-                temp.Y = pivot.Y + other.InnerLowerY + 8.8;
-                temp = temp.next;
+                temp.Y -= delta;
+                temp = temp.Next;
             }
+            pivot.Prev = other;
+            other.Next = pivot;
             pivot.StrokeColor = transparent;
             other.StrokeColor = transparent;
+            otherShape = null;
         }
 
         private void MagnetTop(object source, BaseShape other)
@@ -122,13 +148,23 @@ namespace StudioConcept.Observer
                 return;
             }
 
-            pivot.next = other;
-            interactedList.Add(other);
             
+           
             pivot.X = other.X;
+            var delta = Math.Abs(other.InnerLowerY + 8.8 - pivot.Y);
             pivot.Y = other.Y - pivot.Height - 8.8;
+            var temp = pivot.Next;
+            while (temp != null)
+            {
+                temp.X = other.X;
+                temp.Y += delta;
+                temp = temp.Next;
+            }
+            pivot.Next = other;
+            other.Prev = pivot;
             pivot.StrokeColor = transparent;
             other.StrokeColor = transparent;
+            otherShape = null;
         }
 
         private void MagnetMiddle(object source, BaseShape other)
@@ -137,25 +173,26 @@ namespace StudioConcept.Observer
             {
                 return;
             }
+
+            var next = other.Next;
             pivot.X = other.X;
             pivot.Y = other.InnerLowerY + 8.8;
+            next.Y = pivot.InnerLowerY + 8.8;
+            pivot.Prev = other;
+            pivot.Next = other.Next;
+            other.Next = pivot;
             pivot.StrokeColor = transparent;
             other.StrokeColor = transparent;
         }
 
-        public void RemoveRelation()
+        private void RemoveLinked()
         {
-            foreach (var shape in interactedList)
+            var prev = pivot.Prev;
+            if (prev != null)
             {
-                if (shape!=interact)
-                {
-                    if (shape.groupList.Contains(pivot))
-                    {
-                        shape.groupList.Remove(pivot);
-                        break;
-                    }
-                }
+                prev.Next = null;
             }
+            pivot.Prev = null;
         }
 
     }

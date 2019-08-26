@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows.Documents;
 using StudioConcept.MVVM;
 
 namespace StudioConcept.Tree
@@ -6,5 +7,23 @@ namespace StudioConcept.Tree
     public interface INode
     {
         List<BaseShape> ChildrenNode { get; }
+        /// <summary>
+        /// Next pointer for double linked list.
+        /// </summary>
+        BaseShape Next { get; set; }
+        /// <summary>
+        /// Prev pointer for double linked list.
+        /// </summary>
+        BaseShape Prev { get; set; }
+
+        bool IsTail();
+        bool IsHead();
+
+        bool IsAlone();
+
+        BaseShape GetHead();
+
+        BaseShape GetTail();
+        bool Contain(BaseShape other);
     }
 }
