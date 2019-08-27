@@ -46,14 +46,22 @@ namespace StudioConcept.Observer
                 return true;
             }).ToList();
 
+            //prioritize for drag to bottom
             var temp = interactSet.FirstOrDefault(i =>
             {
-                
+                if (Math.Abs(pivot.X - i.X) < 60 && i is IfShape && pivot.Y > ((IfShape)i).MiddleUpperY && pivot.Y < ((IfShape)i).MiddleLowerY)
+                {
+                    interact = null;
+                    interact += MagnetMiddle;
+                    Console.WriteLine("Catch pivot " + pivot.Text + " (" + pivot.X + " " + pivot.Y + ")" + " drag to top shape: " + i.Text + " (" + i.X + " " + i.Y + ")");
+                    return true;
+                }
                 // drag to bottom of other
                 if (Math.Abs(pivot.X - i.X) < 40 && pivot.OuterUpperY < i.OuterLowerY && pivot.OuterUpperY > i.Y)
                 {
                     interact = null;
                     interact += MagnetBot;
+                    Console.WriteLine("Catch pivot "+pivot.Text+" ("+pivot.X+" "+pivot.Y+")" +" drag to bottom shape: "+i.Text + " (" + i.X + " " + i.Y + ")");
                     return true;
                 }
                 // drag to above of other
@@ -61,47 +69,65 @@ namespace StudioConcept.Observer
                 {
                     interact = null;
                     interact += MagnetTop;
-                    return true;
-                }
-                // drag to middle of other, only for shape that have child
-                if(Math.Abs(pivot.X - i.X) < 40 && i is IfShape && pivot.Y > i.Y && pivot.InnerLowerY < i.InnerLowerY)
-                {
-                   
+                    Console.WriteLine("Catch pivot " + pivot.Text + " (" + pivot.X + " " + pivot.Y + ")" + " drag to top shape: " + i.Text + " (" + i.X + " " + i.Y + ")");
                     return true;
                 }
 
+                
                 return false;
             });
 
             if (temp!=null)
             {
-                if (!temp.IsTail())
+                if (temp!=otherShape&&otherShape!=null)
                 {
-                    interact += MagnetMiddle;
-                    otherShape = temp;
-                }
-                if (otherShape!=null)
-                {
-                    if (otherShape!=temp)
+                    if (temp.GetHead()==otherShape.GetHead())
                     {
-                        otherShape.StrokeColor = transparent;
-                        warning?.Invoke(this, temp);
-                        otherShape = temp;
+                        Console.WriteLine("current and old interact is in same DLL");
+                        if (!temp.IsTail())
+                        {
+                            Console.WriteLine("current is not tail");
+                            if (!temp.IsHead())
+                            {
+                                Console.WriteLine("current is not head");
+                                //temp.Y += pivot.Height+8.8;
+                                temp.DoAllWithoutHead(i => i.Y += pivot.Height + 8.8);
+                            }
+                            else
+                            {
+                                Console.WriteLine("current is head");
+                                //drag pivot to bottom of a head
+                                if (temp.Y < pivot.Y)
+                                {
+                                    temp.DoAllWithoutHead(i => i.Y += pivot.Height + 8.8);
+                                }
+                                //drag to top of a head, do nothing
+                            }
+                            
+                        }
+                        otherShape.DoAllWithoutHead(i=>i.Y-=pivot.Height+8.8);
                     }
+                    else
+                    {
+                        otherShape.DoAllWithoutHead(i => i.Y -= pivot.Height+8.8);
+                    }
+
                 }
-                else
-                {
-                    otherShape = temp;
-                    warning?.Invoke(this, temp);
-                }
+
+                warning?.Invoke(this, temp);
+                otherShape = temp;
             }
             else
             {
                 interact = null;
-                RemoveLinked();
+                RemoveRelation();
                 pivot.StrokeColor = transparent;
                 if (otherShape!=null)
                 {
+                    if (!otherShape.IsTail())
+                    {
+                        otherShape.DoAllWithoutHead(i => { i.Y -= 40;});
+                    }
                     otherShape.StrokeColor = transparent;
                     otherShape = null;
                 }
@@ -122,22 +148,52 @@ namespace StudioConcept.Observer
                 return;
             }
 
-            
-            pivot.X = other.X;
-            var delta = Math.Abs(other.InnerLowerY + 8.8 - pivot.Y);
-            pivot.Y = other.InnerLowerY + 8.8;
-            
-            var temp = pivot.Next;
-            while (temp != null)
+           
+            //determine relationship for pivot and its new head.
+            if (other.IsTail())
             {
-                temp.X = other.X;
-                temp.Y -= delta;
-                temp = temp.Next;
+                // other is a single
+                //calculate the position of pivot.
+                pivot.X = other.X;
+                var delta = Math.Abs(other.InnerLowerY + 8.8 - pivot.Y);
+                pivot.Y = other.InnerLowerY + 8.8;
+                //calculate the next shape head by pivot.
+                pivot.DoAllWithoutHead(i =>
+                {
+                    i.X = other.X;
+                    i.Y -= delta;
+                });
             }
-            pivot.Prev = other;
+            else
+            {
+                // when drag pivot in middle of two shape
+
+                //calculate the position of pivot.
+                pivot.X = other.X;
+                var delta = Math.Abs(other.InnerLowerY + 8.8 - pivot.Y);
+                pivot.Y = other.InnerLowerY + 8.8;
+                
+                double totalHeight = 0;
+                pivot.DoAllWithoutHead(i =>
+                {
+                    i.X = other.X;
+                    i.Y -= delta;
+                    totalHeight += i.Height + 8.8;
+                });
+                other.Next.Y += totalHeight;
+
+                //calculate the next shape head by pivot.
+                var next = other.Next;
+                next.Prev = pivot.GetTail();
+                pivot.GetTail().Next = next;
+                
+            }
             other.Next = pivot;
+            pivot.Prev = other;
             pivot.StrokeColor = transparent;
             other.StrokeColor = transparent;
+           
+            Console.WriteLine("MagnetBot: pivot - "+ pivot.Text + " (" + pivot.X + " " + pivot.Y + ")"+ " ,other - " + otherShape.Text + " (" + otherShape.X + " " + otherShape.Y + ")");
             otherShape = null;
         }
 
@@ -147,23 +203,23 @@ namespace StudioConcept.Observer
             {
                 return;
             }
-
-            
-           
+            //calculate the position of pivot.
             pivot.X = other.X;
             var delta = Math.Abs(other.InnerLowerY + 8.8 - pivot.Y);
             pivot.Y = other.Y - pivot.Height - 8.8;
-            var temp = pivot.Next;
-            while (temp != null)
+            //calculate the next shape head by pivot.
+            pivot.DoAllWithoutHead(i =>
             {
-                temp.X = other.X;
-                temp.Y += delta;
-                temp = temp.Next;
-            }
+                i.X = other.X;
+                i.Y += delta;
+            });
+            //determine relationship for pivot and its new head.
             pivot.Next = other;
             other.Prev = pivot;
             pivot.StrokeColor = transparent;
             other.StrokeColor = transparent;
+            
+            Console.WriteLine("MagnetTop: pivot - " + pivot.Text + " (" + pivot.X + " " + pivot.Y + ")" + " ,other - " + otherShape.Text + " (" + otherShape.X + " " + otherShape.Y + ")");
             otherShape = null;
         }
 
@@ -185,14 +241,14 @@ namespace StudioConcept.Observer
             other.StrokeColor = transparent;
         }
 
-        private void RemoveLinked()
+        private void RemoveRelation()
         {
-            var prev = pivot.Prev;
-            if (prev != null)
-            {
-                prev.Next = null;
-            }
+            var temp = pivot.Prev;
             pivot.Prev = null;
+            if (temp!=null)
+            {
+                temp.Next = null;
+            }
         }
 
     }

@@ -48,6 +48,7 @@ namespace StudioConcept.MVVM
             dropInfo.Effects = DragDropEffects.Move;
         }
 
+        private int time=1;
         public void Drop(IDropInfo dropInfo)
         {
             var drop = (DropInfo) dropInfo;
@@ -55,9 +56,11 @@ namespace StudioConcept.MVVM
 
             BaseShape newItem = (BaseShape)item.Clone();
             newItem.X = drop.DropPosition.X;
+            newItem.Text = "text" + time;
             newItem.Y = drop.DropPosition.Y;
             newItem.IsRecorded = true;
             Shapes.Add(newItem);
+            time++;
         }
     }
 }

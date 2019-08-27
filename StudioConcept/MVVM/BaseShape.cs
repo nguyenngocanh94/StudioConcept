@@ -71,8 +71,8 @@ namespace StudioConcept.MVVM
 
         public BaseShape GetHead()
         {
-            var head = Prev;
-            if (!head.IsHead())
+            var head = this;
+            while (!head.IsHead())
             {
                 head = head.Prev;
             }
@@ -82,8 +82,8 @@ namespace StudioConcept.MVVM
 
         public BaseShape GetTail()
         {
-            var tail = Next;
-            if (!tail.IsTail())
+            var tail = this;
+            while (!tail.IsTail())
             {
                 tail = tail.Next;
             }
@@ -133,8 +133,8 @@ namespace StudioConcept.MVVM
         public double Width { get; set; }
         public virtual double Height { get; set; }
         public abstract string Draw();
-        public virtual double OuterUpperY => Y - Height;
-        public virtual double OuterLowerY => InnerLowerY + Height;
+        public virtual double OuterUpperY => Y - Height/2;
+        public virtual double OuterLowerY => InnerLowerY + Height/2;
         public virtual double InnerLowerY => Y + Height;
         
         public double X
@@ -258,12 +258,12 @@ namespace StudioConcept.MVVM
                         mvvmSource.trackingService.Tracking();
                         mvvmSource.X += dragDelta.X;
                         mvvmSource.Y += dragDelta.Y;
-                        var temp = (BaseShape)mvvmSource.Next;
+                        var temp = mvvmSource.Next;
                         while (temp!=null)
                         {
                             temp.X+= dragDelta.X;
                             temp.Y+= dragDelta.Y;
-                            temp = (BaseShape) temp.Next;
+                            temp = temp.Next;
                         }
                         originPoint = currentPoint;
                     }

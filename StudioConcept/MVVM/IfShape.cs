@@ -17,8 +17,8 @@ namespace StudioConcept.MVVM
         }
         public double MiddleUpperY => Y + 20 + 8;
         public double MiddleLowerY => Y + MiddleSpace + 20 + 8;
-        public override double OuterUpperY => Y - 20 - 8;
-        public override double OuterLowerY => InnerLowerY + 20 + 8;
+        public override double OuterUpperY => Y - 10 - 4;
+        public override double OuterLowerY => InnerLowerY + 10 + 4;
         public override double InnerLowerY => Y + Height;
         //dont ask me why
         public override double Height => _middleSpace + 40 + 16;
