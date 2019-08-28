@@ -22,7 +22,7 @@ namespace StudioConcept.Converter
                     {
                         // todo trigger add then calculate middle height.
                         ((IfShape)shape).ChildrenNode[1].InnerY = 38;
-                        ((IfShape)shape).ChildrenNode.ForEach(sh => { total += ((Sequence)sh).Height; });
+                        //((IfShape)shape).ChildrenNode.ForEach(sh => { total += ((Sequence)sh).Height; });
                         ((IfShape)shape).MiddleSpace = total;
                         return Calculate((BaseShape)shape, (string)parameter == "Canvas.Left");
                     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using JetBrains.Annotations;
 using System.ComponentModel;
 using System.Reflection;
@@ -27,7 +28,6 @@ namespace StudioConcept.MVVM
         private double _innerY;
         private MediaColor _strokeColor;
         private bool _isNeedShadow;
-        public bool _catch;
        
         public bool IsNeedShadow
         {
@@ -310,14 +310,19 @@ namespace StudioConcept.MVVM
                 re.Handled = true;
                 isLeftMouseDownOnShape = true;
             });
+            //ChildrenNode.CollectionChanged +=
         }
         #region for treeview
-        private List<BaseShape> _childrenNode;
 
-        public List<BaseShape> ChildrenNode
-            => _childrenNode ?? (_childrenNode = new List<BaseShape>());
+        private BaseShape _parent;
 
-        
+        public BaseShape Parent { get; set; }
+
+        private ObservableCollection<BaseShape> _childrenNode;
+
+        public ObservableCollection<BaseShape> ChildrenNode
+            => _childrenNode ?? (_childrenNode = new ObservableCollection<BaseShape>());
+
         #endregion
         public object Clone()
         {

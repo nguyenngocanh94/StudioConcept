@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Documents;
 using StudioConcept.MVVM;
 
@@ -6,7 +7,7 @@ namespace StudioConcept.Tree
 {
     public interface INode
     {
-        List<BaseShape> ChildrenNode { get; }
+        ObservableCollection<BaseShape> ChildrenNode { get; }
         /// <summary>
         /// Next pointer for double linked list.
         /// </summary>

@@ -30,7 +30,7 @@ namespace StudioConcept.MVVM
         public MainWindowMVVM(IInputElement studio)
         {
             dragSr.Add(new Sequence(240, 30, Colors.Blue, "Web"));
-            dragSr.Add(new IfShape(240, 30, Colors.Red, "If"));
+            dragSr.Add(new IfShape(240, 20, Colors.Red, "If"));
             ObserverService.MileStone = studio;
             ObserverService.Parent = Shapes;
         }

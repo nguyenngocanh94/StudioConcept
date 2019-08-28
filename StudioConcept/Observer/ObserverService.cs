@@ -16,6 +16,7 @@ namespace StudioConcept.Observer
         private BaseShape pivot;
         private BaseShape otherShape;
         private HashSet<BaseShape> interactedList;
+        public EventHandler<BaseShape> pregnant;
         public EventHandler<BaseShape> interact;
         public EventHandler<BaseShape> warning;
         public ObserverService(BaseShape pivot)
@@ -49,38 +50,97 @@ namespace StudioConcept.Observer
             //prioritize for drag to bottom
             var temp = interactSet.FirstOrDefault(i =>
             {
-                if (Math.Abs(pivot.X - i.X) < 60 && i is IfShape && pivot.Y > ((IfShape)i).MiddleUpperY && pivot.Y < ((IfShape)i).MiddleLowerY)
+                if (i is IfShape)
                 {
-                    interact = null;
-                    interact += MagnetMiddle;
-                    Console.WriteLine("Catch pivot " + pivot.Text + " (" + pivot.X + " " + pivot.Y + ")" + " drag to top shape: " + i.Text + " (" + i.X + " " + i.Y + ")");
-                    return true;
+                    if (Math.Abs(pivot.X - i.X) < 60 && pivot.Y > ((IfShape)i).Y && pivot.Y < ((IfShape)i).InnerLowerY)
+                    {
+                        interact = null;
+                        interact += MagnetMiddle;
+                        pregnant += Pregnant;
+                        Console.WriteLine("Catch pivot " + pivot.Text + " (" + pivot.X + " " + pivot.Y + ")" + " drag to middle shape: " + i.Text + " (" + i.X + " " + i.Y + ")");
+                        return true;
+                    }
+
+                    // drag to bottom of other
+                    if (Math.Abs(pivot.X - i.X) < 40 && pivot.OuterUpperY < i.OuterLowerY && pivot.OuterUpperY > i.Y)
+                    {
+                        interact = null;
+                        interact += MagnetBot;
+                        Console.WriteLine("Catch pivot " + pivot.Text + " (" + pivot.X + " " + pivot.Y + ")" + " drag to bottom shape: " + i.Text + " (" + i.X + " " + i.Y + ")");
+                        return true;
+                    }
+                    // drag to above of other
+                    if (Math.Abs(pivot.X - i.X) < 40 && pivot.OuterLowerY > i.OuterUpperY && pivot.Y < i.Y)
+                    {
+                        interact = null;
+                        interact += MagnetTop;
+                        Console.WriteLine("Catch pivot " + pivot.Text + " (" + pivot.X + " " + pivot.Y + ")" + " drag to top shape: " + i.Text + " (" + i.X + " " + i.Y + ")");
+                        return true;
+                    }
                 }
-                // drag to bottom of other
-                if (Math.Abs(pivot.X - i.X) < 40 && pivot.OuterUpperY < i.OuterLowerY && pivot.OuterUpperY > i.Y)
+                else
                 {
-                    interact = null;
-                    interact += MagnetBot;
-                    Console.WriteLine("Catch pivot "+pivot.Text+" ("+pivot.X+" "+pivot.Y+")" +" drag to bottom shape: "+i.Text + " (" + i.X + " " + i.Y + ")");
-                    return true;
+                    // drag to bottom of other
+                    if (Math.Abs(pivot.X - i.X) < 40 && pivot.OuterUpperY < i.OuterLowerY && pivot.OuterUpperY > i.Y)
+                    {
+                        interact = null;
+                        interact += MagnetBot;
+                        Console.WriteLine("Catch pivot " + pivot.Text + " (" + pivot.X + " " + pivot.Y + ")" + " drag to bottom shape: " + i.Text + " (" + i.X + " " + i.Y + ")");
+                        return true;
+                    }
+                    // drag to above of other
+                    if (Math.Abs(pivot.X - i.X) < 40 && pivot.OuterLowerY > i.OuterUpperY && pivot.Y < i.Y)
+                    {
+                        interact = null;
+                        interact += MagnetTop;
+                        Console.WriteLine("Catch pivot " + pivot.Text + " (" + pivot.X + " " + pivot.Y + ")" + " drag to top shape: " + i.Text + " (" + i.X + " " + i.Y + ")");
+                        return true;
+                    }
                 }
-                // drag to above of other
-                if (Math.Abs(pivot.X - i.X) < 40 && pivot.OuterLowerY > i.OuterUpperY && pivot.Y < i.Y)
-                {
-                    interact = null;
-                    interact += MagnetTop;
-                    Console.WriteLine("Catch pivot " + pivot.Text + " (" + pivot.X + " " + pivot.Y + ")" + " drag to top shape: " + i.Text + " (" + i.X + " " + i.Y + ")");
-                    return true;
-                }
+                
+                
 
                 
                 return false;
             });
-
+            `
             if (temp!=null)
             {
+                if (temp is IfShape && interact==MagnetMiddle)
+                {
+                    if (temp != otherShape)
+                    {
+                        ((IfShape)temp).MiddleSpace = pivot.Height;
+                    }
+                    var interactList = temp.ChildrenNode;
+                    var child = interactList.FirstOrDefault(i =>
+                    {
+                        if (Math.Abs(pivot.X - i.X) < 40 && pivot.OuterUpperY < i.OuterLowerY && pivot.OuterUpperY > i.Y)
+                        {
+                            interact = null;
+                            interact += MagnetBot;
+                            Console.WriteLine("Catch pivot " + pivot.Text + " (" + pivot.X + " " + pivot.Y + ")" + " drag to bottom shape: " + i.Text + " (" + i.X + " " + i.Y + ")");
+                            return true;
+                        }
+                        // drag to above of other
+                        if (Math.Abs(pivot.X - i.X) < 40 && pivot.OuterLowerY > i.OuterUpperY && pivot.Y < i.Y)
+                        {
+                            interact = null;
+                            interact += MagnetTop;
+                            Console.WriteLine("Catch pivot " + pivot.Text + " (" + pivot.X + " " + pivot.Y + ")" + " drag to top shape: " + i.Text + " (" + i.X + " " + i.Y + ")");
+                            return true;
+                        }
+
+                        return false;
+                    });
+                    if (child!=null)
+                    {
+                        temp = child;
+                    }
+                }
                 if (temp!=otherShape&&otherShape!=null)
                 {
+                    
                     if (temp.GetHead()==otherShape.GetHead())
                     {
                         Console.WriteLine("current and old interact is in same DLL");
@@ -113,7 +173,6 @@ namespace StudioConcept.Observer
                     }
 
                 }
-
                 warning?.Invoke(this, temp);
                 otherShape = temp;
             }
@@ -138,7 +197,9 @@ namespace StudioConcept.Observer
         public void Magnet()
         {
             interact?.Invoke(this, otherShape);
+            pregnant?.Invoke(this, otherShape);
             interact = null;
+            pregnant = null;
         }
 
         private void MagnetBot(object source, BaseShape other)
@@ -223,6 +284,7 @@ namespace StudioConcept.Observer
             otherShape = null;
         }
 
+        // only for IBranch
         private void MagnetMiddle(object source, BaseShape other)
         {
             if (other == null)
@@ -230,15 +292,25 @@ namespace StudioConcept.Observer
                 return;
             }
 
-            var next = other.Next;
-            pivot.X = other.X;
-            pivot.Y = other.InnerLowerY + 8.8;
-            next.Y = pivot.InnerLowerY + 8.8;
-            pivot.Prev = other;
-            pivot.Next = other.Next;
-            other.Next = pivot;
+            pivot.Parent = other;
+            other.ChildrenNode.Add(pivot);
+            pivot.X = other.X + 16;
+            pivot.Y = ((IfShape) other).MiddleUpperY;
+
             pivot.StrokeColor = transparent;
             other.StrokeColor = transparent;
+            Console.WriteLine("MagnetMiddle: pivot - " + pivot.Text + " (" + pivot.X + " " + pivot.Y + ")" + " ,other - " + otherShape.Text + " (" + otherShape.X + " " + otherShape.Y + ")");
+
+        }
+
+        private void Pregnant(object source, BaseShape other)
+        {
+            if (other==null)
+            {
+                return;
+            }
+
+            other.ChildrenNode.Add(pivot);
         }
 
         private void RemoveRelation()
