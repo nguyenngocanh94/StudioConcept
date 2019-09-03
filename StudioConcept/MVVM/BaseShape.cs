@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using JetBrains.Annotations;
 using System.ComponentModel;
 using System.Reflection;
@@ -28,7 +29,16 @@ namespace StudioConcept.MVVM
         private double _innerY;
         private MediaColor _strokeColor;
         private bool _isNeedShadow;
-       
+        protected double _middleSpace;
+        public double MiddleSpace
+        {
+            get => _middleSpace;
+            set
+            {
+                _middleSpace = value; Data = Draw();
+
+            }
+        }
         public bool IsNeedShadow
         {
             get => _isNeedShadow;
@@ -258,11 +268,21 @@ namespace StudioConcept.MVVM
                         mvvmSource.trackingService.Tracking();
                         mvvmSource.X += dragDelta.X;
                         mvvmSource.Y += dragDelta.Y;
+                        foreach (var baseShape in mvvmSource.ChildrenNode)
+                        {
+                            baseShape.X += dragDelta.X;
+                            baseShape.Y += dragDelta.Y;
+                        }
                         var temp = mvvmSource.Next;
                         while (temp!=null)
                         {
                             temp.X+= dragDelta.X;
                             temp.Y+= dragDelta.Y;
+                            foreach (var baseShape in temp.ChildrenNode)
+                            {
+                                baseShape.X += dragDelta.X;
+                                baseShape.Y += dragDelta.Y;
+                            }
                             temp = temp.Next;
                         }
                         originPoint = currentPoint;
@@ -298,7 +318,7 @@ namespace StudioConcept.MVVM
                 if (mvvmSource.trackingService==null)
                 {
                     mvvmSource.trackingService = new ObserverService(mvvmSource);
-                    mvvmSource.trackingService.warning += (s, e) =>
+                    mvvmSource.trackingService.WarningEventHandler += (s, e) =>
                     {
                         mvvmSource.StrokeColor = MediaColor.FromRgb(255, 255, 255);
                         e.StrokeColor = MediaColor.FromRgb(255, 255, 255);
@@ -310,7 +330,7 @@ namespace StudioConcept.MVVM
                 re.Handled = true;
                 isLeftMouseDownOnShape = true;
             });
-            //ChildrenNode.CollectionChanged +=
+            ChildrenNode.CollectionChanged += UpdateMiddleSpaceWhenChildrenChanged;
         }
         #region for treeview
 
@@ -322,6 +342,31 @@ namespace StudioConcept.MVVM
 
         public ObservableCollection<BaseShape> ChildrenNode
             => _childrenNode ?? (_childrenNode = new ObservableCollection<BaseShape>());
+
+        private void UpdateMiddleSpaceWhenChildrenChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            // ReSharper disable once MergeCastWithTypeCheck
+            if (sender is ObservableCollection<BaseShape>)
+            {
+                if (((ObservableCollection<BaseShape>)sender).Count == 0)
+                {
+                    MiddleSpace = 40;
+                    return;
+                }
+            }
+
+            UpdateMiddleSpace();
+        }
+        public virtual void UpdateMiddleSpace()
+        {
+            double middleSpace = 0;
+            foreach (var baseShape in ChildrenNode)
+            {
+                middleSpace += baseShape.Height + 8.8;
+            }
+
+            MiddleSpace = middleSpace - 8.8;
+        }
 
         #endregion
         public object Clone()
@@ -343,6 +388,42 @@ namespace StudioConcept.MVVM
             return cloned;
         }
 
+
+        #region Drag
+        /// <summary>
+        /// Check if other is bellow range.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool IsAtBottom(BaseShape other)
+        {
+            return Math.Abs(this.X - other.X) < 40 && this.OuterUpperY < other.OuterLowerY &&
+                   this.OuterUpperY > other.Y;
+        }
+        /// <summary>
+        /// Check if in above range.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool IsAtAbove(BaseShape other)
+        {
+            return Math.Abs(X - other.X) < 40 && OuterLowerY > other.OuterUpperY && Y < other.Y;
+        }
+        /// <summary>
+        /// Check if is middle of an IBranch shape
+        /// </summary>
+        /// <param name="otherShape"></param>
+        /// <returns></returns>
+        public bool IsAtMiddle(BaseShape otherShape)
+        {
+            if (!(otherShape is IBranch))
+            {
+                return false;
+            }
+
+            return Math.Abs(X - otherShape.X) < 60 && Y > ((IfShape) otherShape).Y && Y < ((IfShape) otherShape).InnerLowerY;
+        }
+        #endregion
 
         #region for INotify
         public event PropertyChangedEventHandler PropertyChanged;

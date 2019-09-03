@@ -1,28 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using MediaColor = System.Windows.Media.Color;
 using System.Windows;
 using StudioConcept.MVVM;
+using MediaColor = System.Windows.Media.Color;
 
 namespace StudioConcept.Observer
 {
     public class ObserverService
     {
-        public MediaColor transparent = MediaColor.FromArgb(0, 0, 0, 0);
+        public MediaColor Transparent = MediaColor.FromArgb(0, 0, 0, 0);
         public static ObservableCollection<BaseShape> Parent;
         public static IInputElement MileStone;
-        private BaseShape pivot;
-        private BaseShape otherShape;
-        private HashSet<BaseShape> interactedList;
-        public EventHandler<BaseShape> pregnant;
-        public EventHandler<BaseShape> interact;
-        public EventHandler<BaseShape> warning;
+        private readonly BaseShape _pivot;
+        private BaseShape _otherShape;
+        private BaseShape _parentShape;
+        public EventHandler<BaseShape> PregnantEventHandler;
+        public EventHandler<BaseShape> InteractEventHandler;
+        public EventHandler<BaseShape> WarningEventHandler;
+        public EventHandler<BaseShape> WarningExpandEventHandler;
         public ObserverService(BaseShape pivot)
         {
-            this.pivot = pivot;
-            interactedList = new HashSet<BaseShape>();
+            _pivot = pivot;
         }
 
         public void Tracking()
@@ -32,14 +31,15 @@ namespace StudioConcept.Observer
                 return;
             }
             // remove itself and its child.
+            // you are dummy
             var interactSet = Parent.Where(i =>
             {
-                if (i == pivot)
+                if (i == _pivot)
                 {
                     return false;
                 }
 
-                if (pivot.Contain(i))
+                if (_pivot.Contain(i))
                 {
                     return false;
                 }
@@ -48,147 +48,122 @@ namespace StudioConcept.Observer
             }).ToList();
 
             //prioritize for drag to bottom
-            var temp = interactSet.FirstOrDefault(i =>
-            {
-                if (i is IfShape)
-                {
-                    if (Math.Abs(pivot.X - i.X) < 60 && pivot.Y > ((IfShape)i).Y && pivot.Y < ((IfShape)i).InnerLowerY)
-                    {
-                        interact = null;
-                        interact += MagnetMiddle;
-                        pregnant += Pregnant;
-                        Console.WriteLine("Catch pivot " + pivot.Text + " (" + pivot.X + " " + pivot.Y + ")" + " drag to middle shape: " + i.Text + " (" + i.X + " " + i.Y + ")");
-                        return true;
-                    }
-
-                    // drag to bottom of other
-                    if (Math.Abs(pivot.X - i.X) < 40 && pivot.OuterUpperY < i.OuterLowerY && pivot.OuterUpperY > i.Y)
-                    {
-                        interact = null;
-                        interact += MagnetBot;
-                        Console.WriteLine("Catch pivot " + pivot.Text + " (" + pivot.X + " " + pivot.Y + ")" + " drag to bottom shape: " + i.Text + " (" + i.X + " " + i.Y + ")");
-                        return true;
-                    }
-                    // drag to above of other
-                    if (Math.Abs(pivot.X - i.X) < 40 && pivot.OuterLowerY > i.OuterUpperY && pivot.Y < i.Y)
-                    {
-                        interact = null;
-                        interact += MagnetTop;
-                        Console.WriteLine("Catch pivot " + pivot.Text + " (" + pivot.X + " " + pivot.Y + ")" + " drag to top shape: " + i.Text + " (" + i.X + " " + i.Y + ")");
-                        return true;
-                    }
-                }
-                else
-                {
-                    // drag to bottom of other
-                    if (Math.Abs(pivot.X - i.X) < 40 && pivot.OuterUpperY < i.OuterLowerY && pivot.OuterUpperY > i.Y)
-                    {
-                        interact = null;
-                        interact += MagnetBot;
-                        Console.WriteLine("Catch pivot " + pivot.Text + " (" + pivot.X + " " + pivot.Y + ")" + " drag to bottom shape: " + i.Text + " (" + i.X + " " + i.Y + ")");
-                        return true;
-                    }
-                    // drag to above of other
-                    if (Math.Abs(pivot.X - i.X) < 40 && pivot.OuterLowerY > i.OuterUpperY && pivot.Y < i.Y)
-                    {
-                        interact = null;
-                        interact += MagnetTop;
-                        Console.WriteLine("Catch pivot " + pivot.Text + " (" + pivot.X + " " + pivot.Y + ")" + " drag to top shape: " + i.Text + " (" + i.X + " " + i.Y + ")");
-                        return true;
-                    }
-                }
-                
-                
-
-                
-                return false;
-            });
-            `
+            var temp = Watch();
+            
             if (temp!=null)
             {
-                if (temp is IfShape && interact==MagnetMiddle)
+                // interact with IBranch and the type is drag to middle.
+                if (temp is IBranch && InteractEventHandler==MagnetMiddle)
                 {
-                    if (temp != otherShape)
+                    PregnantEventHandler = null;
+                    PregnantEventHandler += Pregnant;
+                    if (temp == _parentShape && _parentShape != null||_parentShape!=null)
                     {
-                        ((IfShape)temp).MiddleSpace = pivot.Height;
+                        WarningExpandEventHandler = null;
                     }
+                    _parentShape = temp;
+                    // watch the interact list if its children node.
                     var interactList = temp.ChildrenNode;
+                     
                     var child = interactList.FirstOrDefault(i =>
                     {
-                        if (Math.Abs(pivot.X - i.X) < 40 && pivot.OuterUpperY < i.OuterLowerY && pivot.OuterUpperY > i.Y)
+                        if (Math.Abs(_pivot.X - i.X) < 40 && _pivot.OuterUpperY < i.OuterLowerY && _pivot.OuterUpperY > i.Y)
                         {
-                            interact = null;
-                            interact += MagnetBot;
-                            Console.WriteLine("Catch pivot " + pivot.Text + " (" + pivot.X + " " + pivot.Y + ")" + " drag to bottom shape: " + i.Text + " (" + i.X + " " + i.Y + ")");
+                            WarningEventHandler = null;
+                            WarningEventHandler += LightBorder;
+                            InteractEventHandler = null;
+                            InteractEventHandler += MagnetBot;
                             return true;
                         }
                         // drag to above of other
-                        if (Math.Abs(pivot.X - i.X) < 40 && pivot.OuterLowerY > i.OuterUpperY && pivot.Y < i.Y)
+                        if (Math.Abs(_pivot.X - i.X) < 40 && _pivot.OuterLowerY > i.OuterUpperY && _pivot.Y < i.Y)
                         {
-                            interact = null;
-                            interact += MagnetTop;
-                            Console.WriteLine("Catch pivot " + pivot.Text + " (" + pivot.X + " " + pivot.Y + ")" + " drag to top shape: " + i.Text + " (" + i.X + " " + i.Y + ")");
+                            InteractEventHandler = null;
+                            WarningEventHandler = null;
+                            WarningEventHandler += LightBorder;
+                            InteractEventHandler += MagnetTop;
                             return true;
                         }
 
                         return false;
                     });
+
                     if (child!=null)
                     {
+                        if (InteractEventHandler == MagnetTop && child!=_otherShape)
+                        {
+                            LightBorderAndPush(this, child);
+                        }
                         temp = child;
                     }
-                }
-                if (temp!=otherShape&&otherShape!=null)
-                {
                     
-                    if (temp.GetHead()==otherShape.GetHead())
+                    
+                }
+                // second time, if the next interact is different, remove old warning.
+                else if (temp!=_otherShape&&_otherShape!=null)
+                {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                    // if the old and new is same in linked list
+                    if (temp.GetHead()==_otherShape.GetHead())
                     {
-                        Console.WriteLine("current and old interact is in same DLL");
+                        // if interact is not tail.
                         if (!temp.IsTail())
                         {
-                            Console.WriteLine("current is not tail");
+                            // and not head
                             if (!temp.IsHead())
                             {
-                                Console.WriteLine("current is not head");
-                                //temp.Y += pivot.Height+8.8;
-                                temp.DoAllWithoutHead(i => i.Y += pivot.Height + 8.8);
+                                // expand the tail.
+                                temp.DoAllWithoutHead(i => i.Y += _pivot.Height + 8.8);
                             }
                             else
                             {
-                                Console.WriteLine("current is head");
-                                //drag pivot to bottom of a head
-                                if (temp.Y < pivot.Y)
+                                // if drag pivot to bottom of a head, expand the tail
+                                if (temp.Y < _pivot.Y)
                                 {
-                                    temp.DoAllWithoutHead(i => i.Y += pivot.Height + 8.8);
+                                    temp.DoAllWithoutHead(i => i.Y += _pivot.Height + 8.8);
                                 }
-                                //drag to top of a head, do nothing
+                                // else drag to top of a head, do nothing
                             }
-                            
                         }
-                        otherShape.DoAllWithoutHead(i=>i.Y-=pivot.Height+8.8);
+                        _otherShape.DoAllWithoutHead(i=>i.Y-=_pivot.Height+8.8);
                     }
                     else
                     {
-                        otherShape.DoAllWithoutHead(i => i.Y -= pivot.Height+8.8);
+                        // else old and new is different linked list, undo expand of old linked list
+                        _otherShape.DoAllWithoutHead(i => i.Y -= _pivot.Height+8.8);
+
                     }
 
                 }
-                warning?.Invoke(this, temp);
-                otherShape = temp;
+                // first time, just warning.
+                WarningEventHandler?.Invoke(this, temp);
+                
+                WarningExpandEventHandler?.Invoke(this, _parentShape);
+                _otherShape = temp;
             }
             else
             {
-                interact = null;
+                // if not see any interact. remove relationship of old interact.
+                // clear the warning, undo the expand. update the interact.
+                InteractEventHandler = null;
                 RemoveRelation();
-                pivot.StrokeColor = transparent;
-                if (otherShape!=null)
+                _pivot.Parent?.ChildrenNode.Remove(_pivot);
+                _pivot.Parent?.UpdateMiddleSpace();
+                _parentShape?.UpdateMiddleSpace();
+                _pivot.Parent = null;
+                _parentShape = null;
+                _pivot.StrokeColor = Transparent;
+                if (_otherShape!=null)
                 {
-                    if (!otherShape.IsTail())
+                    if (!_otherShape.IsTail())
                     {
-                        otherShape.DoAllWithoutHead(i => { i.Y -= 40;});
+                        _otherShape.DoAllWithoutHead(i => { i.Y -= 40;});
                     }
-                    otherShape.StrokeColor = transparent;
-                    otherShape = null;
+                    foreach (var baseShape in _otherShape.ChildrenNode)
+                    {
+                        baseShape.StrokeColor = Transparent;
+                    }
+                    _otherShape.StrokeColor = Transparent;
+                    _otherShape = null;
                 }
             }
 
@@ -196,10 +171,10 @@ namespace StudioConcept.Observer
 
         public void Magnet()
         {
-            interact?.Invoke(this, otherShape);
-            pregnant?.Invoke(this, otherShape);
-            interact = null;
-            pregnant = null;
+            InteractEventHandler?.Invoke(this, _otherShape);
+            PregnantEventHandler?.Invoke(this, _parentShape);
+            InteractEventHandler = null;
+            PregnantEventHandler = null;
         }
 
         private void MagnetBot(object source, BaseShape other)
@@ -213,13 +188,13 @@ namespace StudioConcept.Observer
             //determine relationship for pivot and its new head.
             if (other.IsTail())
             {
-                // other is a single
+                //other is a single
                 //calculate the position of pivot.
-                pivot.X = other.X;
-                var delta = Math.Abs(other.InnerLowerY + 8.8 - pivot.Y);
-                pivot.Y = other.InnerLowerY + 8.8;
+                _pivot.X = other.X;
+                var delta = Math.Abs(other.InnerLowerY + 8.8 - _pivot.Y);
+                _pivot.Y = other.InnerLowerY + 8.8;
                 //calculate the next shape head by pivot.
-                pivot.DoAllWithoutHead(i =>
+                _pivot.DoAllWithoutHead(i =>
                 {
                     i.X = other.X;
                     i.Y -= delta;
@@ -230,12 +205,12 @@ namespace StudioConcept.Observer
                 // when drag pivot in middle of two shape
 
                 //calculate the position of pivot.
-                pivot.X = other.X;
-                var delta = Math.Abs(other.InnerLowerY + 8.8 - pivot.Y);
-                pivot.Y = other.InnerLowerY + 8.8;
+                _pivot.X = other.X;
+                var delta = Math.Abs(other.InnerLowerY + 8.8 - _pivot.Y);
+                _pivot.Y = other.InnerLowerY + 8.8;
                 
                 double totalHeight = 0;
-                pivot.DoAllWithoutHead(i =>
+                _pivot.DoAllWithoutHead(i =>
                 {
                     i.X = other.X;
                     i.Y -= delta;
@@ -245,17 +220,16 @@ namespace StudioConcept.Observer
 
                 //calculate the next shape head by pivot.
                 var next = other.Next;
-                next.Prev = pivot.GetTail();
-                pivot.GetTail().Next = next;
+                next.Prev = _pivot.GetTail();
+                _pivot.GetTail().Next = next;
                 
             }
-            other.Next = pivot;
-            pivot.Prev = other;
-            pivot.StrokeColor = transparent;
-            other.StrokeColor = transparent;
+            other.Next = _pivot;
+            _pivot.Prev = other;
+            _pivot.StrokeColor = Transparent;
+            other.StrokeColor = Transparent;
            
-            Console.WriteLine("MagnetBot: pivot - "+ pivot.Text + " (" + pivot.X + " " + pivot.Y + ")"+ " ,other - " + otherShape.Text + " (" + otherShape.X + " " + otherShape.Y + ")");
-            otherShape = null;
+            _otherShape = null;
         }
 
         private void MagnetTop(object source, BaseShape other)
@@ -265,23 +239,22 @@ namespace StudioConcept.Observer
                 return;
             }
             //calculate the position of pivot.
-            pivot.X = other.X;
-            var delta = Math.Abs(other.InnerLowerY + 8.8 - pivot.Y);
-            pivot.Y = other.Y - pivot.Height - 8.8;
+            _pivot.X = other.X;
+            var delta = Math.Abs(other.InnerLowerY + 8.8 - _pivot.Y);
+            _pivot.Y = other.Y - _pivot.Height - 8.8;
             //calculate the next shape head by pivot.
-            pivot.DoAllWithoutHead(i =>
+            _pivot.DoAllWithoutHead(i =>
             {
                 i.X = other.X;
                 i.Y += delta;
             });
             //determine relationship for pivot and its new head.
-            pivot.Next = other;
-            other.Prev = pivot;
-            pivot.StrokeColor = transparent;
-            other.StrokeColor = transparent;
+            _pivot.Next = other;
+            other.Prev = _pivot;
+            _pivot.StrokeColor = Transparent;
+            other.StrokeColor = Transparent;
             
-            Console.WriteLine("MagnetTop: pivot - " + pivot.Text + " (" + pivot.X + " " + pivot.Y + ")" + " ,other - " + otherShape.Text + " (" + otherShape.X + " " + otherShape.Y + ")");
-            otherShape = null;
+            _otherShape = null;
         }
 
         // only for IBranch
@@ -292,14 +265,17 @@ namespace StudioConcept.Observer
                 return;
             }
 
-            pivot.Parent = other;
-            other.ChildrenNode.Add(pivot);
-            pivot.X = other.X + 16;
-            pivot.Y = ((IfShape) other).MiddleUpperY;
+            _pivot.Parent = other;
+            if (!other.ChildrenNode.Contains(_pivot))
+            {
+                other.ChildrenNode.Add(_pivot);
+                
+            }
+            _pivot.X = other.X + 16;
+            _pivot.Y = ((IfShape) other).MiddleUpperY;
 
-            pivot.StrokeColor = transparent;
-            other.StrokeColor = transparent;
-            Console.WriteLine("MagnetMiddle: pivot - " + pivot.Text + " (" + pivot.X + " " + pivot.Y + ")" + " ,other - " + otherShape.Text + " (" + otherShape.X + " " + otherShape.Y + ")");
+            _pivot.StrokeColor = Transparent;
+            other.StrokeColor = Transparent;
 
         }
 
@@ -310,18 +286,130 @@ namespace StudioConcept.Observer
                 return;
             }
 
-            other.ChildrenNode.Add(pivot);
+            if (!other.ChildrenNode.Contains(_pivot))
+            {
+                _pivot.Parent = other;
+                other.ChildrenNode.Add(_pivot);
+            }
         }
 
         private void RemoveRelation()
         {
-            var temp = pivot.Prev;
-            pivot.Prev = null;
+            var temp = _pivot.Prev;
+            _pivot.Prev = null;
             if (temp!=null)
             {
                 temp.Next = null;
             }
         }
 
+        private void LightBorder(object source, BaseShape other)
+        {
+            _pivot.StrokeColor = MediaColor.FromRgb(255, 255, 255);
+            other.StrokeColor = MediaColor.FromRgb(255, 255, 255);
+        }
+
+        private void LightBorderAndPush(object source, BaseShape other)
+        {
+            other.Y += _pivot.Height+8.8;
+        }
+
+        private void LightBorderAndExpand(object source, BaseShape other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+            _pivot.StrokeColor = MediaColor.FromRgb(255, 255, 255);
+            other.StrokeColor = MediaColor.FromRgb(255, 255, 255);
+
+           
+            if (other is IBranch)
+            {
+                if (((IfShape)other).ChildrenNode.Count==0)
+                {
+                    ((IfShape) other).MiddleSpace = _pivot.Height;
+                }
+                else
+                {
+                    ((IfShape) other).MiddleSpace += _pivot.Height+8.8;
+                }
+            }
+        }
+
+        private void RemoveLightBorder()
+        {
+            _pivot.StrokeColor = Transparent;
+            _otherShape.StrokeColor = Transparent;
+        }
+        /// <summary>
+        /// what do our pivot interact with.
+        /// </summary>
+        /// <returns></returns>
+        private BaseShape Watch()
+        {
+            // remove itself and on the same linked list.
+            var interactSet = Parent.Where(i =>
+            {
+                if (i == _pivot)
+                {
+                    return false;
+                }
+
+                if (_pivot.Contain(i))
+                {
+                    return false;
+                }
+
+                if (_pivot.ChildrenNode.Contains(i))
+                {
+                    return false;
+                }
+
+                if (_pivot.Parent==i)
+                {
+                    return false;
+                }
+                return true;
+            }).ToList();
+
+            //prioritize : middle -> bottom -> above.
+            var temp = interactSet.FirstOrDefault(i =>
+            {
+                if (_pivot.IsAtMiddle(i))
+                {
+                    InteractEventHandler = null;
+                    WarningExpandEventHandler = null;
+                    InteractEventHandler += MagnetMiddle;
+                    WarningExpandEventHandler += LightBorderAndExpand;
+
+                    return true;
+                }
+
+                // drag to bottom of other
+                if (_pivot.IsAtBottom(i))
+                {
+                    InteractEventHandler = null;
+                    WarningEventHandler = null;
+                    InteractEventHandler += MagnetBot;
+                    WarningEventHandler += LightBorder;
+
+                    return true;
+                }
+                // drag to above of other
+                if (_pivot.IsAtAbove(i))
+                {
+                    InteractEventHandler = null;
+                    WarningEventHandler = null;
+                    InteractEventHandler += MagnetTop;
+                    WarningEventHandler += LightBorder;
+
+                    return true;
+                }
+                return false;
+            });
+
+            return temp;
+        }
     }
 }

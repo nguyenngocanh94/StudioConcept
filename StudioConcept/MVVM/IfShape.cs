@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Windows;
 using System.Windows.Media;
 
 namespace StudioConcept.MVVM
@@ -9,17 +12,12 @@ namespace StudioConcept.MVVM
     }
     public class IfShape : BaseShape, IBranch
     {
-        private double _middleSpace;
-        public double MiddleSpace { get=>_middleSpace;
-            set { _middleSpace = value; Data=Draw();
-                
-            }
-        }
         public double MiddleUpperY => Y + 20 + 8;
         public double MiddleLowerY => Y + MiddleSpace + 20 + 8;
         public override double OuterUpperY => Y - 10 - 4;
         public override double OuterLowerY => InnerLowerY + 10 + 4; 
         public override double InnerLowerY => Y + Height;
+
         //dont ask me why
         public override double Height => _middleSpace + 40 + 16;
         public override string Draw()
@@ -45,6 +43,7 @@ namespace StudioConcept.MVVM
             Color = color;
             Text = text;
             Data = Draw();
+            
         }
 
         public IfShape()
@@ -52,7 +51,18 @@ namespace StudioConcept.MVVM
             
         }
 
+        public override void UpdateMiddleSpace()
+        {
+            double middleSpace = 0;
+            foreach (var baseShape in ChildrenNode)
+            {
+                middleSpace += baseShape.Height + 8.8;
+            }
 
+            MiddleSpace = middleSpace-8.8;
+        }
+
+        
 
     }
 }
