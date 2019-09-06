@@ -107,6 +107,7 @@
       <DependentUpon>ListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Observer\ObserverService.cs" />
+    <Compile Include="Observer\State.cs" />
     <Compile Include="TreeView.xaml.cs">
       <DependentUpon>TreeView.xaml</DependentUpon>
     </Compile>

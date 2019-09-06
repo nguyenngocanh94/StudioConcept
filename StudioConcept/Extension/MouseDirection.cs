@@ -20,6 +20,7 @@ namespace StudioConcept.Extension
         BottomRight,
     }
 
+   
     public class MouseMovement
     {
         public static MouseDirection GetMouseDirection(Point pre, Point cur)

@@ -12,6 +12,7 @@ using StudioConcept.Command;
 using StudioConcept.Observer;
 using StudioConcept.Tree;
 using System.Windows.Media.Effects;
+using StudioConcept.Extension;
 using MediaColor = System.Windows.Media.Color;
 using Point = System.Windows.Point;
 
@@ -30,6 +31,34 @@ namespace StudioConcept.MVVM
         private MediaColor _strokeColor;
         private bool _isNeedShadow;
         protected double _middleSpace;
+        public ShapeState State = ShapeState.Balance;
+        private double _originY;
+        
+        public void Down(double delta)
+        {
+            if (State== ShapeState.Down)
+            {
+                Console.WriteLine(Text+" CURRENT STATUS: DOWN");
+            }
+            if (State == ShapeState.Balance)
+            {
+                Console.WriteLine(Text + " CURRENT STATUS: BALANCE");
+                _originY = Y;
+                State = ShapeState.Down;
+                Y += delta;
+            }
+        }
+
+        public void Redo()
+        {
+            if (State!= ShapeState.Balance)
+            {
+                Y = _originY;
+            }
+            Console.WriteLine(Text+" REDO TO BALANCE");
+            State = ShapeState.Balance;
+        }
+
         public double MiddleSpace
         {
             get => _middleSpace;
@@ -115,7 +144,13 @@ namespace StudioConcept.MVVM
             }
         }
 
-        public bool Contain(BaseShape other)
+        public void DoAll(Action<BaseShape> action)
+        {
+            action(this);
+            DoAllWithoutHead(action);
+        }
+
+        public bool HeadOf(BaseShape other)
         {
             var current = this;
             while (current!=null)
@@ -249,7 +284,7 @@ namespace StudioConcept.MVVM
             {
                 var source = (FrameworkElement)re.Source;
                 var mvvmSource = (BaseShape)source.DataContext;
-                mvvmSource.trackingService.Magnet();
+                mvvmSource.trackingService?.Magnet();
                 source.Effect = null;
                 source.ReleaseMouseCapture();
                 isLeftMouseDownOnShape = false;
@@ -265,7 +300,7 @@ namespace StudioConcept.MVVM
                     var dragDelta = currentPoint - originPoint;
                     if (dragDelta != new Vector(0,0))
                     {
-                        mvvmSource.trackingService.Tracking();
+                        mvvmSource.trackingService?.Tracking();
                         mvvmSource.X += dragDelta.X;
                         mvvmSource.Y += dragDelta.Y;
                         foreach (var baseShape in mvvmSource.ChildrenNode)
@@ -350,7 +385,7 @@ namespace StudioConcept.MVVM
             {
                 if (((ObservableCollection<BaseShape>)sender).Count == 0)
                 {
-                    MiddleSpace = 40;
+                    MiddleSpace = 20;
                     return;
                 }
             }
@@ -360,6 +395,7 @@ namespace StudioConcept.MVVM
         public virtual void UpdateMiddleSpace()
         {
             double middleSpace = 0;
+            
             foreach (var baseShape in ChildrenNode)
             {
                 middleSpace += baseShape.Height + 8.8;

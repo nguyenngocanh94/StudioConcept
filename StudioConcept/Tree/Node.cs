@@ -25,6 +25,6 @@ namespace StudioConcept.Tree
         BaseShape GetHead();
 
         BaseShape GetTail();
-        bool Contain(BaseShape other);
+        bool HeadOf(BaseShape other);
     }
 }

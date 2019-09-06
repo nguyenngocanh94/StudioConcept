@@ -53,6 +53,11 @@ namespace StudioConcept.MVVM
 
         public override void UpdateMiddleSpace()
         {
+            if (ChildrenNode.Count==0)
+            {
+                MiddleSpace = 20;
+                return;
+            }
             double middleSpace = 0;
             foreach (var baseShape in ChildrenNode)
             {
