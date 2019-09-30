@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="actions" xml:space="preserve">
+    <value>アクション</value>
+  </data>
+  <data name="application_action" xml:space="preserve">
+    <value>アプリケーション</value>
+  </data>
+  <data name="attachment" xml:space="preserve">
+    <value>添付</value>
+  </data>
+  <data name="bcc" xml:space="preserve">
+    <value>BCC</value>
+  </data>
+  <data name="breakpoint" xml:space="preserve">
+    <value>ブレークポイント</value>
+  </data>
+  <data name="cc" xml:space="preserve">
+    <value>CC</value>
+  </data>
+  <data name="content" xml:space="preserve">
+    <value>本文</value>
+  </data>
+  <data name="data" xml:space="preserve">
+    <value>データ</value>
+  </data>
+  <data name="DEFALT_FONT" xml:space="preserve">
+    <value>Yu Gothic UI</value>
+  </data>
+  <data name="execute" xml:space="preserve">
+    <value>一部実行</value>
+  </data>
+  <data name="favorite" xml:space="preserve">
+    <value>お気に入り</value>
+  </data>
+  <data name="file" xml:space="preserve">
+    <value>ファイル</value>
+  </data>
+  <data name="from" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="mail_action" xml:space="preserve">
+    <value>メールアクション</value>
+  </data>
+  <data name="mail_address" xml:space="preserve">
+    <value>メールアドレス</value>
+  </data>
+  <data name="mail_property" xml:space="preserve">
+    <value>E-Mailプロパティ</value>
+  </data>
+  <data name="new" xml:space="preserve">
+    <value>新規</value>
+  </data>
+  <data name="new_project" xml:space="preserve">
+    <value>新規プロジェクト</value>
+  </data>
+  <data name="open_project" xml:space="preserve">
+    <value>プロジェクトを開く</value>
+  </data>
+  <data name="operation_action" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="option" xml:space="preserve">
+    <value>オプション</value>
+  </data>
+  <data name="pause" xml:space="preserve">
+    <value>一時停止</value>
+  </data>
+  <data name="play" xml:space="preserve">
+    <value>全て実行</value>
+  </data>
+  <data name="property" xml:space="preserve">
+    <value>プロパティ</value>
+  </data>
+  <data name="recent_actions" xml:space="preserve">
+    <value>最近使用したアクション</value>
+  </data>
+  <data name="Redo" xml:space="preserve">
+    <value>元に戻す</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="setting" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="sns_action" xml:space="preserve">
+    <value>SNS</value>
+  </data>
+  <data name="stop" xml:space="preserve">
+    <value>停止</value>
+  </data>
+  <data name="subject" xml:space="preserve">
+    <value>件名</value>
+  </data>
+  <data name="template" xml:space="preserve">
+    <value>テンプレート</value>
+  </data>
+  <data name="to" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="web_browser_action" xml:space="preserve">
+    <value>Webブラウザー</value>
+  </data>
+  <data name="action_back" xml:space="preserve">
+    <value>戻る</value>
+  </data>
+  <data name="action_close_browser" xml:space="preserve">
+    <value>ブラウザーを閉じる</value>
+  </data>
+  <data name="action_data_extraction" xml:space="preserve">
+    <value>データ抽出</value>
+  </data>
+  <data name="action_enter_data" xml:space="preserve">
+    <value>データ入力</value>
+  </data>
+  <data name="action_google_search" xml:space="preserve">
+    <value>Google検索</value>
+  </data>
+  <data name="action_goto_url" xml:space="preserve">
+    <value>URLに移動</value>
+  </data>
+  <data name="action_maximize_browser" xml:space="preserve">
+    <value>ブラウザーを最大化</value>
+  </data>
+  <data name="action_minimize_browser" xml:space="preserve">
+    <value>ブラウザーを最小化</value>
+  </data>
+  <data name="action_next" xml:space="preserve">
+    <value>進む</value>
+  </data>
+  <data name="action_open_browser" xml:space="preserve">
+    <value>ブラウザーを開く</value>
+  </data>
+  <data name="action_switch_browser" xml:space="preserve">
+    <value>ブラウザー切り替え</value>
+  </data>
+  <data name="action_wikipedia_search" xml:space="preserve">
+    <value>Wikipedia検索</value>
+  </data>
+  <data name="action_yahoo_japan_finance" xml:space="preserve">
+    <value>Yahoo! Japan ファイナンス</value>
+  </data>
+  <data name="action_yahoo_japan_search" xml:space="preserve">
+    <value>Yahoo! Japan 検索</value>
+  </data>
+  <data name="action_yahoo_japan_transit" xml:space="preserve">
+    <value>Yahoo! Japan 乗換</value>
+  </data>
+  <data name="loading_mainwindow" xml:space="preserve">
+    <value>メインウィンドウ読み込み中....</value>
+  </data>
+  <data name="loading_uia_instance" xml:space="preserve">
+    <value>UIAインスタンス読み込み中....</value>
+  </data>
+  <data name="loading_web_automatinon_instance" xml:space="preserve">
+    <value>Web自動化インスタンス読み込み中....</value>
+  </data>
+  <data name="main_window_title" xml:space="preserve">
+    <value>経費申請確認</value>
+  </data>
+  <data name="select_all" xml:space="preserve">
+    <value>全て選択</value>
+  </data>
+  <data name="scenario" xml:space="preserve">
+    <value>シナリオ</value>
+  </data>
+</root>

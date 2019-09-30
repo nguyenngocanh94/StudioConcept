@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="StudioConcept.ActionItem.SequenceAction"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:StudioConcept.ActionItem"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ctv="clr-namespace:StudioConcept.Converter"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:command="http://www.galasoft.ch/mvvmlight"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ctv:ColorToBrushConverter x:Key="ColorToBrushConverter"></ctv:ColorToBrushConverter>
+        <ctv:MvvmLightConverter x:Key="MvvmLightConverter"></ctv:MvvmLightConverter>
+        <ctv:ShapeTextPositionConverter x:Key="ShapeTextPositionConverter"/>
+        
+    </UserControl.Resources>
+    <Canvas>
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="MouseLeftButtonDown">
+                <command:EventToCommand Command="{Binding MouseDownCommand}" 
+                                    PassEventArgsToCommand="True" />
+            </i:EventTrigger>
+            <i:EventTrigger EventName="MouseLeftButtonUp">
+                <command:EventToCommand Command="{Binding MouseUpCommand}" 
+                                        PassEventArgsToCommand="True" />
+            </i:EventTrigger>
+            <i:EventTrigger EventName="MouseMove">
+                <command:EventToCommand Command="{Binding MouseMoveCommand}" 
+                                        PassEventArgsToCommand="True" />
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+        <Path Tag="{Binding IsNeedShadow}" x:Name="Shape" Data="{Binding Data}" StrokeThickness="2" Stroke="{Binding StrokeColor,Converter={StaticResource ColorToBrushConverter}}"
+              Fill="{Binding Color, Converter={StaticResource ColorToBrushConverter}}">
+            <!--<Path.Resources>
+                <Style x:Key="trigger"
+            TargetType="Path">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Direction="2" Color="#C0C0C0" Opacity="1"></DropShadowEffect>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Path.Resources>-->
+        </Path>
+        <TextBlock FontSize="{Binding FontSize}" x:Name="ActionName" Foreground="White" Text="{Binding Text}" Canvas.Left="{Binding Converter={StaticResource ShapeTextPositionConverter}, ConverterParameter=Canvas.Left}"
+                   Canvas.Top="{Binding Converter={StaticResource ShapeTextPositionConverter}, ConverterParameter=Canvas.Top}" />
+    </Canvas>
+</UserControl>

@@ -1,0 +1,54 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:item="clr-namespace:StudioConcept.ActionItem"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                    xmlns:converter="clr-namespace:StudioConcept.Converter">
+    <converter:ChildrenPositionConverter x:Key="ChildrenPositionConverter"></converter:ChildrenPositionConverter>
+    <converter:ChildrenEachPositionConverter x:Key="ChildrenEachPositionConverter"></converter:ChildrenEachPositionConverter>
+    <Style x:Key="IfShapeStyle" TargetType="TreeViewItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TreeViewItem">
+                    <Canvas x:Name="HostWithChildren">
+                        <Canvas.Resources>
+                            <converter:ChildrenPositionConverter x:Key="ChildrenPositionCvt"/>
+                        </Canvas.Resources>
+                        <item:SequenceAction x:Name="PART_Header" Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}">
+                        </item:SequenceAction>
+                        <ItemsPresenter Name="ItemsPresenter">
+                            <Canvas.Left>
+                                <MultiBinding Converter="{StaticResource ChildrenPositionConverter}">
+                                    <Binding ElementName="PART_Header" Path="DataContext"/>
+                                    <MultiBinding.ConverterParameter>Canvas.Left</MultiBinding.ConverterParameter>
+                                </MultiBinding>
+                            </Canvas.Left>
+                            <Canvas.Top>
+                                <MultiBinding Converter="{StaticResource ChildrenPositionConverter}">
+                                    <Binding ElementName="PART_Header" Path="DataContext"/>
+                                    <MultiBinding.ConverterParameter>Canvas.Top</MultiBinding.ConverterParameter>
+                                </MultiBinding>
+                            </Canvas.Top>
+                        </ItemsPresenter>
+                    </Canvas>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="TreeViewItem.HasItems" Value="false">
+                            <Setter 
+                                TargetName="ItemsPresenter" 
+                                Property="Visibility" 
+                                Value="Hidden" />
+                            <Setter Property="Canvas.Top" Value="{Binding InnerY}"></Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <Canvas x:Name="BigCanvas" IsItemsHost="True">
+                    </Canvas>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
